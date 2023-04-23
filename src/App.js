@@ -3,7 +3,9 @@ import "./App.css";
 import Header from "./components/Header";
 import Image from "./components/Image";
 import AddItem from "./components/AddItem";
-import { firebaseData } from "./firebase";
+import { firebaseConfig } from "./firebaseConfig";
+import { initializeApp } from "firebase/app";
+import { getDatabase, ref, push } from "firebase/database";
 import { nanoid } from "nanoid";
 
 function App() {
@@ -16,17 +18,16 @@ function App() {
   }
 
   //firebase settings
-  const appSettings = firebaseData.databaseURL;
 
-  const app = firebaseData.initializeApp(appSettings);
-  const database = firebaseData.getDatabase(app);
-  const productsInDB = firebaseData.ref(database, "products");
+  const app = initializeApp(firebaseConfig);
+  const database = getDatabase(app);
+  const productsInDB = ref(database, "products");
 
   //input handler function
   const [groceryItem, setGroceryItem] = React.useState([]);
   const [itemName, setItemName] = React.useState("");
 
-  function handlgeChange(event) {
+  function handleChange(event) {
     const { value } = event.target;
     setItemName(value);
   }
@@ -42,7 +43,7 @@ function App() {
       };
       setGroceryItem([...groceryItem, newItem]);
     }
-    firebaseData.push(productsInDB, groceryItem);
+    push(productsInDB, groceryItem);
     setItemName("");
     // setGroceryItem({ itemName: "" });
     console.log("form submitted");
@@ -54,7 +55,7 @@ function App() {
       <Image />
       <AddItem
         onSubmit={handleSubmit}
-        onChange={handlgeChange}
+        onChange={handleChange}
         groceryItem={groceryItem}
       />
     </div>
