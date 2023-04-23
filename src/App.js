@@ -10,6 +10,7 @@ import { nanoid } from "nanoid";
 
 function App() {
   //dark mode function
+
   const [darkMode, setDarkMode] = React.useState(false);
 
   function toggleDarkMode() {
@@ -24,6 +25,7 @@ function App() {
   const productsInDB = ref(database, "products");
 
   //input handler function
+
   const [groceryItem, setGroceryItem] = React.useState([]);
   const [itemName, setItemName] = React.useState("");
 
@@ -33,6 +35,7 @@ function App() {
   }
 
   // handle submit function
+
   function handleSubmit(event) {
     event.preventDefault();
 
@@ -41,16 +44,15 @@ function App() {
         id: nanoid(),
         itemName: itemName,
       };
-      setGroceryItem([...groceryItem, newItem]);
+      setGroceryItem((prevItems) => [...prevItems, newItem]);
+      push(productsInDB, newItem);
+      setItemName("");
+      console.log("form submitted");
     }
-    push(productsInDB, groceryItem);
-    setItemName("");
-    // setGroceryItem({ itemName: "" });
-    console.log("form submitted");
   }
 
   return (
-    <div className="App">
+    <div className={darkMode ? "darkApp" : "App"}>
       <Header darkMode={darkMode} toggleDarkMode={toggleDarkMode} />
       <Image />
       <AddItem

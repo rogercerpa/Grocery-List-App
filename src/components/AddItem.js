@@ -2,8 +2,6 @@ import React from "react";
 import GroceryList from "./GroceryList";
 
 export default function AddItem(props) {
-  console.log(props.groceryItem);
-
   return (
     <div className="addItemContainer">
       <form onSubmit={props.onSubmit}>

@@ -1,13 +1,31 @@
 .App {
+  color: #21222A;
+  background-color: #e1e0e4;
   text-align: center;
   display: flex;
   flex-direction: column;
+  align-items: center;
+  height: 800px;
+  width:auto;
+  margin: auto;
+}
+
+.darkApp {
+  background-color: #21222A;
+  color: #D5D4D8;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 800px;
+  width: auto;
+  margin: auto;
 }
 
 
 .addButton {
   color: #FDFDFD;
-  background-color: #AC485A;
+  background-color: #10a124;
   cursor: pointer;
   text-decoration: none;
   padding: 16px 32px;
@@ -16,6 +34,7 @@
   border-radius: 8px;
   font-size: 20px;
 }
+
 
 .form--input {
   box-sizing: border-box;
@@ -48,11 +67,7 @@ padding: 20px 50px 10px 50px;
 nav {
   display: flex;
   align-items: center;
-  background-color: #ffffff;
   padding: 30px 25px;
-  height: 60px;
-  box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.25);
-  z-index: 1;
 }
 
 nav.dark {
