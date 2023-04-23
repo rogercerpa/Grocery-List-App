@@ -3,7 +3,7 @@ import "./App.css";
 import Header from "./components/Header";
 import Image from "./components/Image";
 import AddItem from "./components/AddItem";
-import { firebaseData } from "../firebase";
+import { firebaseData } from "./firebase";
 import { nanoid } from "nanoid";
 
 function App() {
