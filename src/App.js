@@ -5,8 +5,14 @@ import Image from "./components/Image";
 import AddItem from "./components/AddItem";
 import { firebaseConfig } from "./firebaseConfig";
 import { initializeApp } from "firebase/app";
-import { getDatabase, ref, push } from "firebase/database";
-import { nanoid } from "nanoid";
+import {
+  getDatabase,
+  ref,
+  push,
+  onValue,
+  remove,
+  off,
+} from "firebase/database";
 
 function App() {
   //dark mode function
@@ -29,6 +35,8 @@ function App() {
   const [groceryItem, setGroceryItem] = React.useState([]);
   const [itemName, setItemName] = React.useState("");
 
+  // handle input changes
+
   function handleChange(event) {
     const { value } = event.target;
     setItemName(value);
@@ -41,21 +49,60 @@ function App() {
 
     if (itemName.trim() !== "") {
       const newItem = {
-        id: nanoid(),
         itemName: itemName,
       };
+      const newItemRef = push(productsInDB, newItem);
+      newItem.id = newItemRef.key;
       setGroceryItem((prevItems) => [...prevItems, newItem]);
-      push(productsInDB, newItem);
       setItemName("");
       console.log("form submitted");
     }
   }
+
+  // handle delete products from database
+
+  function handleDelete(itemId) {
+    const itemRef = ref(database, `products/${itemId}`);
+    remove(itemRef).then(() => {
+      setGroceryItem((prevItems) =>
+        prevItems.filter((item) => item.id !== itemId)
+      );
+    });
+  }
+
+  // Load products from the database when the component mounts
+  React.useEffect(() => {
+    const fetchData = async () => {
+      onValue(productsInDB, (snapshot) => {
+        if (snapshot.exists()) {
+          const data = snapshot.val();
+          const itemsArray = [];
+          for (const key in data) {
+            itemsArray.push({
+              id: key,
+              ...data[key],
+            });
+          }
+          setGroceryItem(itemsArray);
+        }
+      });
+    };
+
+    fetchData();
+
+    return () => {
+      // Unsubscribe from the firebase listener
+      off(productsInDB);
+    };
+  }, [productsInDB]);
 
   return (
     <div className={darkMode ? "darkApp" : "App"}>
       <Header darkMode={darkMode} toggleDarkMode={toggleDarkMode} />
       <Image />
       <AddItem
+        itemName={itemName}
+        handleDelete={handleDelete}
         onSubmit={handleSubmit}
         onChange={handleChange}
         groceryItem={groceryItem}

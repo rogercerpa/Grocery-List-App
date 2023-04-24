@@ -1,8 +1,15 @@
 export default function GroceryList(props) {
-  const productName = props.groceryItem;
+  const { groceryItem, handleDelete } = props;
 
-  const productList = productName.map((item) => {
-    return <li key={item.id}>{item.itemName}</li>;
+  const productList = groceryItem.map((item) => {
+    return (
+      <li key={item.id}>
+        {item.itemName}
+        <button onClick={() => handleDelete(item.id, console.log(item.id))}>
+          Delete
+        </button>
+      </li>
+    );
   });
 
   return (

@@ -10,12 +10,15 @@ export default function AddItem(props) {
           placeholder="type grocery item here"
           className="form--input"
           onChange={props.onChange}
-          value={props.groceryItem.value}
+          value={props.itemName}
           name="itemName"
         ></input>
         <button className="addButton">Add to Cart</button>
       </form>
-      <GroceryList groceryItem={props.groceryItem} />
+      <GroceryList
+        handleDelete={props.handleDelete}
+        groceryItem={props.groceryItem}
+      />
     </div>
   );
 }
