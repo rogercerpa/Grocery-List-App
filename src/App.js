@@ -8,10 +8,11 @@ import { initializeApp } from "firebase/app";
 import {
   getDatabase,
   ref,
-  push,
   onValue,
   remove,
   off,
+  set,
+  push,
 } from "firebase/database";
 
 function App() {
@@ -51,8 +52,9 @@ function App() {
       const newItem = {
         itemName: itemName,
       };
-      const newItemRef = push(productsInDB, newItem);
+      const newItemRef = push(productsInDB);
       newItem.id = newItemRef.key;
+      set(newItemRef, newItem);
       setGroceryItem((prevItems) => [...prevItems, newItem]);
       setItemName("");
       console.log("form submitted");
