@@ -5,9 +5,7 @@ export default function GroceryList(props) {
     return (
       <li key={item.id}>
         {item.itemName}
-        <button onClick={() => handleDelete(item.id, console.log(item.id))}>
-          Delete
-        </button>
+        <button onClick={() => handleDelete(item.id)}>Delete</button>
       </li>
     );
   });
