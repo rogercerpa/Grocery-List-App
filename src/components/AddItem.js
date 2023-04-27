@@ -13,7 +13,9 @@ export default function AddItem(props) {
           value={props.itemName}
           name="itemName"
         ></input>
-        <button className="addButton">Add to Cart</button>
+        <button className="text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-opacity-50 cursor-pointer py-4 px-8 rounded-md text-lg">
+          Add to Cart
+        </button>
       </form>
       <GroceryList
         handleDelete={props.handleDelete}
