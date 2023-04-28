@@ -8,7 +8,7 @@ export default function AddItem(props) {
         <input
           type="text"
           placeholder="type grocery item here"
-          className="form--input"
+          className="box-border border-none focus:border-3 focus:border-gray-500 rounded-md w-full text-2xl text-center my-2"
           onChange={props.onChange}
           value={props.itemName}
           name="itemName"

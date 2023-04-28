@@ -35,20 +35,6 @@
 }
 
 
-.form--input {
-  box-sizing: border-box;
-  border: none;
-  border-radius: 8px;
-  width: 100%;
-  font-size: 25px;
-  text-align: center;
-  margin: 10px 0;
-}
-
-.form--input[type=text]:focus {
-  border: 3px solid #555;
-}
-
 
 .addItemContainer form {
   display: flex;
@@ -81,29 +67,12 @@ nav.dark {
   color: #DEEBF8;
 }
 
-.toggler {
-  display: flex;
-  align-items: center;
-}
 
 .toggler p {
   font-size: 0.625rem;
   font-weight: 600;
 }
 
-.toggler--slider {
-  width: 25px;
-  height: 13px;
-  background-color: #2B283A;
-  border-radius: 2rem;
-  margin-inline: 7px;
-  cursor: pointer;
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-  border: 1px solid black;
-  box-sizing: content-box;
-}
 
 nav.dark .toggler--slider {
   border-color: white;
