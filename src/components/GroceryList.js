@@ -5,7 +5,12 @@ export default function GroceryList(props) {
     return (
       <li key={item.id}>
         {item.itemName}
-        <button onClick={() => handleDelete(item.id)}>Delete</button>
+        <button
+          className="outline outline-offset-2 outline-pink-500 ..."
+          onClick={() => handleDelete(item.id)}
+        >
+          Delete
+        </button>
       </li>
     );
   });
@@ -13,7 +18,9 @@ export default function GroceryList(props) {
   return (
     <div>
       <h1>My list of Products</h1>
-      <ul id="shopping-list">{productList}</ul>
+      <ul className="list-disc" id="shopping-list">
+        {productList}
+      </ul>
     </div>
   );
 }
