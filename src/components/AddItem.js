@@ -18,14 +18,15 @@ export default function AddItem(props) {
 
         <select
           className="box-border border-none focus:border-3 focus:border-gray-500 rounded-md w-full text-2xl text-center my-2"
+          onChange={props.onSelectChange}
           required
         >
           <option value="" disabled selected>
             Select an option
           </option>
-          <option>Option 1</option>
-          <option>Option 2</option>
-          <option>Option 3</option>
+          <option value="Food">Food</option>
+          <option value="Home Items">Home Items</option>
+          <option value="Business Items">Business Items</option>
         </select>
 
         <button className="flex flex-row justify-center items-center text-zinc-950 bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-opacity-50 cursor-pointer py-4 px-8 gap-5 rounded-md text-lg">

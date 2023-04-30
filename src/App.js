@@ -42,6 +42,14 @@ function App() {
     setItemName(value);
   }
 
+  const [selectedOption, setSelectedOption] = React.useState("");
+
+  // handle select change
+
+  function handleSelectChange(event) {
+    setSelectedOption(event.target.value);
+  }
+
   // handle submit function
 
   function handleSubmit(event) {
@@ -50,6 +58,7 @@ function App() {
     if (itemName.trim() !== "") {
       const newItem = {
         itemName: itemName,
+        option: selectedOption,
       };
       const newItemRef = push(productsInDB);
       newItem.id = newItemRef.key;
@@ -107,6 +116,7 @@ function App() {
         onSubmit={handleSubmit}
         onChange={handleChange}
         groceryItem={groceryItem}
+        onSelectChange={handleSelectChange}
       />
     </div>
   );
