@@ -18,7 +18,7 @@ export default function GroceryList(props) {
   return (
     <div className="">
       <h1 className="font-extrabold p-3">My list of Products</h1>
-      <ul className="flex flex-col gap-5 list-none" id="shopping-list">
+      <ul className="flex flex-col gap-1 list-none" id="shopping-list">
         {productList}
       </ul>
     </div>
