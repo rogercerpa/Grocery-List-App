@@ -4,11 +4,11 @@ export default function GroceryList(props) {
 
   const productList = groceryItem.map((item) => {
     return (
-      <div className="flex flex-row">
-        <li className="m-1 shadow-md ..." key={item.id}>
+      <div className=" flex flex-row justify-center shrink-0 justify-between rounded-md  bg-sky-500/100">
+        <li className="m-1 shadow-md font-bold p-1.5" key={item.id}>
           {item.itemName}
         </li>
-        <button className="" onClick={() => handleDelete(item.id)}>
+        <button className="p-1.5" onClick={() => handleDelete(item.id)}>
           <AiFillDelete />
         </button>
       </div>
@@ -17,8 +17,8 @@ export default function GroceryList(props) {
 
   return (
     <div className="">
-      <h1 className="font-bold ...">My list of Products</h1>
-      <ul className="list-disc" id="shopping-list">
+      <h1 className="font-extrabold p-3">My list of Products</h1>
+      <ul className="flex flex-col gap-5 list-none" id="shopping-list">
         {productList}
       </ul>
     </div>
