@@ -58,7 +58,7 @@ function App() {
     if (itemName.trim() !== "") {
       const newItem = {
         itemName: itemName,
-        option: selectedOption,
+        category: selectedOption,
       };
       const newItemRef = push(productsInDB);
       newItem.id = newItemRef.key;
