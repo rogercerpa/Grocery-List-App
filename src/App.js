@@ -14,9 +14,6 @@ import {
   set,
   push,
 } from "firebase/database";
-import SignUp from "./components/SignUp";
-import SignIn from "./components/SignIn";
-import Profile from "./components/Profile";
 
 function App() {
   //dark mode function
@@ -128,14 +125,12 @@ function App() {
 
   return (
     <div className={darkMode ? "darkApp" : "App"}>
-      <Header darkMode={darkMode} toggleDarkMode={toggleDarkMode} />
-      {!user && (
-        <div>
-          <SignUp />
-          <SignIn />
-        </div>
-      )}
-      {user && <Profile user={user} />}
+      <Header
+        darkMode={darkMode}
+        toggleDarkMode={toggleDarkMode}
+        user={user}
+        setUser={setUser}
+      />
       <Image />
       <AddItem
         itemName={itemName}
