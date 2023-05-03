@@ -2,6 +2,7 @@ import React from "react";
 import Header from "./components/Header";
 import Image from "./components/Image";
 import AddItem from "./components/AddItem";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { firebaseConfig } from "./firebaseConfig";
 import { initializeApp } from "firebase/app";
 import {
@@ -13,6 +14,9 @@ import {
   set,
   push,
 } from "firebase/database";
+import SignUp from "./components/SignUp";
+import SignIn from "./components/SignIn";
+import Profile from "./components/Profile";
 
 function App() {
   //dark mode function
@@ -106,9 +110,32 @@ function App() {
     };
   }, [productsInDB]);
 
+  //authentication
+
+  const auth = getAuth(app);
+
+  const [user, setUser] = React.useState(null);
+
+  React.useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+      setUser(currentUser);
+    });
+
+    return () => {
+      unsubscribe();
+    };
+  }, [auth]);
+
   return (
     <div className={darkMode ? "darkApp" : "App"}>
       <Header darkMode={darkMode} toggleDarkMode={toggleDarkMode} />
+      {!user && (
+        <div>
+          <SignUp />
+          <SignIn />
+        </div>
+      )}
+      {user && <Profile user={user} />}
       <Image />
       <AddItem
         itemName={itemName}
