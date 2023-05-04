@@ -2,6 +2,7 @@ import React from "react";
 import Header from "./components/Header";
 import Image from "./components/Image";
 import AddItem from "./components/AddItem";
+import Profile from "./Pages/Profile";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { firebaseConfig } from "./firebaseConfig";
 import { initializeApp } from "firebase/app";
@@ -14,6 +15,7 @@ import {
   set,
   push,
 } from "firebase/database";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
 function App() {
   //dark mode function
@@ -124,23 +126,29 @@ function App() {
   }, [auth]);
 
   return (
-    <div className={darkMode ? "darkApp" : "App"}>
-      <Header
-        darkMode={darkMode}
-        toggleDarkMode={toggleDarkMode}
-        user={user}
-        setUser={setUser}
-      />
-      <Image />
-      <AddItem
-        itemName={itemName}
-        handleDelete={handleDelete}
-        onSubmit={handleSubmit}
-        onChange={handleChange}
-        groceryItem={groceryItem}
-        onSelectChange={handleSelectChange}
-      />
-    </div>
+    <Router>
+      <div className={darkMode ? "darkApp" : "App"}>
+        <Header
+          darkMode={darkMode}
+          toggleDarkMode={toggleDarkMode}
+          user={user}
+          setUser={setUser}
+          auth={auth}
+        />
+        <Routes>
+          <Route path="/profile" element={<Profile user={user} />} />
+        </Routes>
+        <Image />
+        <AddItem
+          itemName={itemName}
+          handleDelete={handleDelete}
+          onSubmit={handleSubmit}
+          onChange={handleChange}
+          groceryItem={groceryItem}
+          onSelectChange={handleSelectChange}
+        />
+      </div>
+    </Router>
   );
 }
 

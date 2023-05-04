@@ -1,16 +1,27 @@
 import SignUp from "./SignUp";
 import SignIn from "./SignIn";
-import Profile from "./Profile";
-import { FaUserPlus, FaSignInAlt } from "react-icons/fa";
+import { FaUserPlus, FaSignInAlt, FaUser, FaSignOutAlt } from "react-icons/fa";
 import { useState } from "react";
 import Modal from "react-modal";
+import { signOut } from "firebase/auth";
+import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
+
 Modal.setAppElement("#root");
 
 export default function Header(props) {
   // state management for signup, sign and dark mode
   const [showSignUp, setShowSignUp] = useState(false);
   const [showSignIn, setShowSignIn] = useState(false);
-  const { darkMode, toggleDarkMode, user, setUser } = props;
+  const { darkMode, toggleDarkMode, user, setUser, auth } = props;
+
+  const history = useNavigate();
+
+  const handleSignOut = async () => {
+    await signOut(auth);
+    setUser(null);
+    history.push("/");
+  };
 
   return (
     <nav className={darkMode ? "dark" : ""}>
@@ -25,10 +36,10 @@ export default function Header(props) {
         <p className="toggler--dark">Dark</p>
         {!user && (
           <>
-            <button onClick={() => setShowSignUp(true)}>
+            <button className="p-2" onClick={() => setShowSignUp(true)}>
               <FaUserPlus />
             </button>
-            <button onClick={() => setShowSignIn(true)}>
+            <button className="p-2" onClick={() => setShowSignIn(true)}>
               <FaSignInAlt />
             </button>
             <Modal
@@ -47,7 +58,18 @@ export default function Header(props) {
             </Modal>
           </>
         )}
-        {user && <Profile user={user} setUser={setUser} />}
+        {user && (
+          <>
+            <Link to="/profile">
+              <button className="p-2">
+                <FaUser />
+              </button>
+            </Link>
+            <button className="p-2" onClick={handleSignOut}>
+              <FaSignOutAlt />
+            </button>
+          </>
+        )}
       </div>
     </nav>
   );
