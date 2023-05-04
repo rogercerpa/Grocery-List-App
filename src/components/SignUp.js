@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 
+//sign up state managemenet
 function SignUp() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -8,6 +9,7 @@ function SignUp() {
 
   const auth = getAuth();
 
+  //handle the form submit and checks for email, password errors.
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {

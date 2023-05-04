@@ -4,6 +4,7 @@ import { AiFillDelete } from "react-icons/ai";
 export default function GroceryList(props) {
   const { groceryItem, handleDelete } = props;
 
+  //based on the category, items are grouped
   const groupedItems = groceryItem.reduce((grouped, item) => {
     if (!grouped[item.category]) {
       grouped[item.category] = [];
@@ -12,6 +13,7 @@ export default function GroceryList(props) {
     return grouped;
   }, {});
 
+  //once the hide/show button is trigger, this activates/shows or hide the items within that category.
   const [visibleCategories, setVisibleCategories] = useState(() => {
     const initialVisible = {};
     Object.keys(groupedItems).forEach((category) => {
@@ -20,6 +22,7 @@ export default function GroceryList(props) {
     return initialVisible;
   });
 
+  //handles the button for show or hide category items.
   const toggleCategory = (category) => {
     setVisibleCategories((prevVisible) => ({
       ...prevVisible,

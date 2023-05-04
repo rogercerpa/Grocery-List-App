@@ -1,9 +1,9 @@
 import React from "react";
 import { getAuth, signOut } from "firebase/auth";
 
+// handles authentication to show profile
 function Profile({ user }) {
   const auth = getAuth();
-
   const handleSignOut = async () => {
     await signOut(auth);
   };

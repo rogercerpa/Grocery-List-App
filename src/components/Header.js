@@ -7,6 +7,7 @@ import Modal from "react-modal";
 Modal.setAppElement("#root");
 
 export default function Header(props) {
+  // state management for signup, sign and dark mode
   const [showSignUp, setShowSignUp] = useState(false);
   const [showSignIn, setShowSignIn] = useState(false);
   const { darkMode, toggleDarkMode, user, setUser } = props;

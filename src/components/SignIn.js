@@ -1,13 +1,16 @@
 import React, { useState } from "react";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 
+// sign up state management
 function SignIn() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
 
+  //authentication from firebase
   const auth = getAuth();
 
+  // handles the sign in submit and waits for the email and password for be verified.
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
