@@ -5,11 +5,11 @@ import { ImCart } from "react-icons/im";
 export default function AddItem(props) {
   return (
     <div className="addItemContainer">
-      <form onSubmit={props.onSubmit}>
+      <form className="gap-2" onSubmit={props.onSubmit}>
         <input
           type="text"
           placeholder="type grocery item here"
-          className="box-border border-none focus:border-3 focus:border-gray-500 rounded-md w-full text-2xl text-center my-2"
+          className="block w-full rounded-md border-0 py-1.5 pl-7 pr-20 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
           onChange={props.onChange}
           value={props.itemName}
           name="itemName"
@@ -17,7 +17,7 @@ export default function AddItem(props) {
         ></input>
 
         <select
-          className="box-border border-none focus:border-3 focus:border-gray-500 rounded-md w-full text-2xl text-center my-2"
+          className="h-full rounded-md border-0 bg-transparent py-0 pl-2 pr-7 text-gray-500 focus:ring-2 focus:ring-inset focus:ring-indigo-600 md:text-md"
           onChange={props.onSelectChange}
           required
         >
