@@ -45,16 +45,28 @@ export default function Header(props) {
             <Modal
               isOpen={showSignUp}
               onRequestClose={() => setShowSignUp(false)}
+              className="bg-white p-6 rounded-md shadow-md w-96 max-w-full mx-auto"
             >
-              <button onClick={() => setShowSignUp(false)}>Close</button>
               <SignUp setUser={setUser} />
+              <button
+                className="p-3 bg-red-500 rounded font-bold font-mono w-full gap-2"
+                onClick={() => setShowSignUp(false)}
+              >
+                Close
+              </button>
             </Modal>
             <Modal
               isOpen={showSignIn}
               onRequestClose={() => setShowSignIn(false)}
+              className=" bg-white p-6 rounded-md shadow-md w-96 max-w-full mx-auto"
             >
-              <button onClick={() => setShowSignIn(false)}>Close</button>
               <SignIn setUser={setUser} />
+              <button
+                className="p-3 bg-red-500 rounded font-bold font-mono w-full gap-2"
+                onClick={() => setShowSignIn(false)}
+              >
+                Close
+              </button>
             </Modal>
           </>
         )}
