@@ -32,10 +32,9 @@ export default function GroceryList(props) {
 
   return (
     <div className="">
-      <h1 className="font-extrabold p-3">My list of Products</h1>
       {Object.keys(groupedItems).map((category) => (
         <div className="flex flex-col" key={category}>
-          <div className="justify-items-center p-2 ">
+          <div className=" justify-items-center p-2 ">
             <button
               className="ml-3 bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded focus:outline-none focus:shadow-outline"
               onClick={() => toggleCategory(category)}
