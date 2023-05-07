@@ -116,7 +116,7 @@ export default function CombinedNavbar(props) {
                       >
                         <SignUp setUser={setUser} />
                         <button
-                          className="p-3 bg-red-500 rounded font-bold font-mono w-full gap-2"
+                          className="p-3 bg-pink-500 rounded font-bold font-mono w-full gap-2"
                           onClick={() => setShowSignUp(false)}
                         >
                           Close
@@ -129,7 +129,7 @@ export default function CombinedNavbar(props) {
                       >
                         <SignIn setUser={setUser} />
                         <button
-                          className="p-3 bg-red-500 rounded font-bold font-mono w-full gap-2"
+                          className="p-3 bg-green-500 rounded font-bold font-mono w-full gap-2"
                           onClick={() => setShowSignIn(false)}
                         >
                           Close
