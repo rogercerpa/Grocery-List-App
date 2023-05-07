@@ -112,7 +112,7 @@ export default function CombinedNavbar(props) {
                       <Modal
                         isOpen={showSignUp}
                         onRequestClose={() => setShowSignUp(false)}
-                        className="bg-white p-6 rounded-md shadow-md w-96 max-w-full mx-auto"
+                        className="bg-white p-6 rounded-md shadow-md w-96 max-w-full mx-auto m-20"
                       >
                         <SignUp setUser={setUser} />
                         <button
@@ -125,7 +125,7 @@ export default function CombinedNavbar(props) {
                       <Modal
                         isOpen={showSignIn}
                         onRequestClose={() => setShowSignIn(false)}
-                        className=" bg-white p-6 rounded-md shadow-md w-96 max-w-full mx-auto"
+                        className=" bg-white p-6 rounded-md shadow-md w-96 max-w-full mx-auto m-20 "
                       >
                         <SignIn setUser={setUser} />
                         <button
