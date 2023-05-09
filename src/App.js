@@ -3,6 +3,7 @@ import Header from "./components/Header";
 import Image from "./components/Image";
 import AddItem from "./components/AddItem";
 import Profile from "./Pages/Profile";
+import Home from "./Pages/Home";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { firebaseConfig } from "./firebaseConfig";
 import { initializeApp } from "firebase/app";
@@ -137,6 +138,7 @@ function App() {
         />
         <Routes>
           <Route path="/profile" element={<Profile user={user} />} />
+          <Route path="/" element={<Home user={user} />} />
         </Routes>
         <Image />
         <AddItem
