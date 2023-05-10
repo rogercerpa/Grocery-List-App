@@ -90,12 +90,14 @@ export default function CombinedNavbar(props) {
                 </div>
 
                 <div className="flex items-center ml-auto">
-                  <div
+                  {/* Old Dark mode disable */}
+
+                  {/* <div
                     className="w-6 h-3 bg-[#2B283A] rounded-full mx-1 cursor-pointer flex items-center justify-start border border-black box-content"
                     onClick={toggleDarkMode}
                   >
                     <div className="toggler--slider--circle"></div>
-                  </div>
+                  </div> */}
 
                   {!user && (
                     <>

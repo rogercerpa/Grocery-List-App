@@ -10,29 +10,8 @@
 @tailwind components;
 @tailwind utilities;
 
-.App {
-  color: #21222A;
-  background-color: #e1e0e4;
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  height: 1000px;
-  width: auto;
-  margin: auto;
-}
 
-.darkApp {
-  background-color: #21222A;
-  color: #D5D4D8;
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  height: 1000px;
-  width: auto;
-  margin: auto;
-}
+
 
 
 nav.dark {

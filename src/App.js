@@ -128,7 +128,13 @@ function App() {
 
   return (
     <Router>
-      <div className={darkMode ? "darkApp" : "App"}>
+      <div
+        className={
+          darkMode
+            ? "dbg-[#21222A] text-[#D5D4D8] text-center flex flex-col items-center h-[1000px] w-auto m-auto"
+            : "text-[#21222A] bg-[#ffffff] text-center flex flex-col items-center h-auto w-auto m-auto"
+        }
+      >
         <Header
           darkMode={darkMode}
           toggleDarkMode={toggleDarkMode}
