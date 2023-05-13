@@ -97,7 +97,32 @@ export default function CombinedNavbar(props) {
                 <button className="p-2" onClick={() => setShowSignIn(true)}>
                   <FaSignInAlt />
                 </button>
-                {/* Existing Modals */}
+                <Modal
+                  isOpen={showSignUp}
+                  onRequestClose={() => setShowSignUp(false)}
+                  className="bg-white p-6 rounded-md shadow-md w-96 max-w-full mx-auto m-20"
+                >
+                  <SignUp setUser={setUser} />
+                  <button
+                    className="p-3 bg-pink-500 rounded font-bold font-mono w-full gap-2"
+                    onClick={() => setShowSignUp(false)}
+                  >
+                    Close
+                  </button>
+                </Modal>
+                <Modal
+                  isOpen={showSignIn}
+                  onRequestClose={() => setShowSignIn(false)}
+                  className=" bg-white p-6 rounded-md shadow-md w-96 max-w-full mx-auto m-20 "
+                >
+                  <SignIn setUser={setUser} />
+                  <button
+                    className="p-3 bg-green-500 rounded font-bold font-mono w-full gap-2"
+                    onClick={() => setShowSignIn(false)}
+                  >
+                    Close
+                  </button>
+                </Modal>
               </>
             )}
             {user && (
