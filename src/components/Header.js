@@ -14,7 +14,7 @@ Modal.setAppElement("#root");
 
 const navigation = [
   { name: "Grocery List", href: "/", current: true },
-  // { name: "Team", href: "#", current: false },
+  { name: "Recipes", href: "/recipes", current: false },
   // { name: "Projects", href: "#", current: false },
   // { name: "Calendar", href: "#", current: false },
 ];

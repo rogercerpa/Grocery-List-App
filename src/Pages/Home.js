@@ -1,8 +1,7 @@
 import React from "react";
-import { Link } from "react-router-dom";
 
 const Home = (props) => {
-  const { darkMode, toggleDarkMode, user, setUser, auth } = props;
+  const { user, setUser, auth } = props;
   return (
     <div className="home">
       <h1>Welcome to GroceryList App</h1>
