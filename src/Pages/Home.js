@@ -1,13 +1,16 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-const Home = () => {
+const Home = (props) => {
+  const { darkMode, toggleDarkMode, user, setUser, auth } = props;
   return (
     <div className="home">
       <h1>Welcome to GroceryList App</h1>
-      <p>Sign up or sign in to access the main features of the app.</p>
+      {!user && (
+        <p>Sign up or sign in to access the main features of the app.</p>
+      )}
 
-      {/* Add basic features of your app below */}
+      {user && <p>Start Creating your grocery list today!</p>}
     </div>
   );
 };
