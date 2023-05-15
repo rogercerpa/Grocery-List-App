@@ -147,14 +147,16 @@ function App() {
           <Route path="/" element={<Home user={user} />} />
         </Routes>
         <Image />
-        <AddItem
-          itemName={itemName}
-          handleDelete={handleDelete}
-          onSubmit={handleSubmit}
-          onChange={handleChange}
-          groceryItem={groceryItem}
-          onSelectChange={handleSelectChange}
-        />
+        {user && (
+          <AddItem
+            itemName={itemName}
+            handleDelete={handleDelete}
+            onSubmit={handleSubmit}
+            onChange={handleChange}
+            groceryItem={groceryItem}
+            onSelectChange={handleSelectChange}
+          />
+        )}
       </div>
     </Router>
   );
