@@ -1,4 +1,6 @@
 import React from "react";
+import AddItems from "../components/AddItem";
+import Image from "../components/Image";
 
 const Home = (props) => {
   const { user, setUser, auth } = props;
@@ -9,7 +11,13 @@ const Home = (props) => {
         <p>Sign up or sign in to access the main features of the app.</p>
       )}
 
-      {user && <p>Start Creating your grocery list today!</p>}
+      {user && (
+        <div>
+          <h2>Start Creating your grocery list today!</h2>
+          <Image />
+          <AddItems />
+        </div>
+      )}
     </div>
   );
 };

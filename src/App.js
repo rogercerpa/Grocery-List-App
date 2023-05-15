@@ -35,55 +35,7 @@ function App() {
   const database = getDatabase(app);
   const productsInDB = ref(database, "products");
 
-  //input handler function
-
   const [groceryItem, setGroceryItem] = React.useState([]);
-  const [itemName, setItemName] = React.useState("");
-
-  // handle input changes
-
-  function handleChange(event) {
-    const { value } = event.target;
-    setItemName(value);
-  }
-
-  const [selectedOption, setSelectedOption] = React.useState("");
-
-  // handle select change
-
-  function handleSelectChange(event) {
-    setSelectedOption(event.target.value);
-  }
-
-  // handle submit function
-
-  function handleSubmit(event) {
-    event.preventDefault();
-
-    if (itemName.trim() !== "") {
-      const newItem = {
-        itemName: itemName,
-        category: selectedOption,
-      };
-      const newItemRef = push(productsInDB);
-      newItem.id = newItemRef.key;
-      set(newItemRef, newItem);
-      setGroceryItem((prevItems) => [...prevItems, newItem]);
-      setItemName("");
-      console.log("form submitted");
-    }
-  }
-
-  // handle delete products from database
-
-  function handleDelete(itemId) {
-    const itemRef = ref(database, `products/${itemId}`);
-    remove(itemRef).then(() => {
-      setGroceryItem((prevItems) =>
-        prevItems.filter((item) => item.id !== itemId)
-      );
-    });
-  }
 
   // Load products from the database when the component mounts
   React.useEffect(() => {
@@ -148,17 +100,6 @@ function App() {
           <Route path="/" element={<Home user={user} />} />
           <Route path="/recipes" element={<Recipes user={user} />} />
         </Routes>
-        <Image />
-        {user && (
-          <AddItem
-            itemName={itemName}
-            handleDelete={handleDelete}
-            onSubmit={handleSubmit}
-            onChange={handleChange}
-            groceryItem={groceryItem}
-            onSelectChange={handleSelectChange}
-          />
-        )}
       </div>
     </Router>
   );
