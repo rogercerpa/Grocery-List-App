@@ -9,6 +9,7 @@ import Modal from "react-modal";
 import { signOut } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
+import Tooltip from "../components/Tooltip";
 
 Modal.setAppElement("#root");
 
@@ -91,12 +92,16 @@ export default function CombinedNavbar(props) {
           <div className="flex items-center ml-auto">
             {!user && (
               <>
-                <button className="p-2" onClick={() => setShowSignUp(true)}>
-                  <FaUserPlus />
-                </button>
-                <button className="p-2" onClick={() => setShowSignIn(true)}>
-                  <FaSignInAlt />
-                </button>
+                <Tooltip content="Sign-Up">
+                  <button className="p-2" onClick={() => setShowSignUp(true)}>
+                    <FaUserPlus />
+                  </button>
+                </Tooltip>
+                <Tooltip content="Sign-In">
+                  <button className="p-2" onClick={() => setShowSignIn(true)}>
+                    <FaSignInAlt />
+                  </button>
+                </Tooltip>
                 <Modal
                   isOpen={showSignUp}
                   onRequestClose={() => setShowSignUp(false)}
@@ -128,13 +133,17 @@ export default function CombinedNavbar(props) {
             {user && (
               <>
                 <Link to="/profile">
-                  <button className="p-2">
-                    <FaUser />
-                  </button>
+                  <Tooltip content="Profile">
+                    <button className="p-2">
+                      <FaUser />
+                    </button>
+                  </Tooltip>
                 </Link>
-                <button className="p-2" onClick={handleSignOut}>
-                  <FaSignOutAlt />
-                </button>
+                <Tooltip content="Sign-Out">
+                  <button className="p-2" onClick={handleSignOut}>
+                    <FaSignOutAlt />
+                  </button>
+                </Tooltip>
               </>
             )}
           </div>
