@@ -4,6 +4,7 @@ import axios from "axios";
 const Recipes = (props) => {
   const [searchTerm, setSearchTerm] = useState("");
   const [recipes, setRecipes] = useState([]);
+  const [error, setError] = useState(null);
   const { user, setUser, auth } = props;
 
   const handleSearchTermChange = (event) => {
@@ -11,13 +12,25 @@ const Recipes = (props) => {
   };
 
   const handleSearch = async () => {
-    // Use axios to send a GET request to the API
-    // API_URL should be the URL of the API endpoint you are trying to reach
-    // searchTerm should be added as a parameter to the request
-    const result = await axios.get(`API_URL?search=${searchTerm}`);
+    setError(null);
+    try {
+      const result = await axios({
+        method: "GET",
+        url: "https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/complexSearch",
+        params: {
+          query: searchTerm,
+        },
+        headers: {
+          "X-RapidAPI-Key": process.env.REACT_APP_RAPIDAPI_KEY,
+          "X-RapidAPI-Host":
+            "spoonacular-recipe-food-nutrition-v1.p.rapidapi.com",
+        },
+      });
 
-    // Update the recipes state with the data from the API
-    setRecipes(result.data);
+      setRecipes(result.data.results);
+    } catch (err) {
+      setError(err.toString());
+    }
   };
 
   return (
@@ -29,6 +42,8 @@ const Recipes = (props) => {
       {!user && (
         <p>Sign up or sign in to access the main features of the app.</p>
       )}
+
+      {error && <div>Error: {error}</div>}
 
       {user && (
         <div>
@@ -48,9 +63,8 @@ const Recipes = (props) => {
           <div>
             {recipes.map((recipe, index) => (
               <div key={index}>
-                <h2>{recipe.name}</h2>
-                <img src={recipe.image} alt={recipe.name} />
-                <p>{recipe.description}</p>
+                <h2>{recipe.title}</h2>
+                <img src={recipe.image} alt={recipe.title} />
               </div>
             ))}
           </div>
