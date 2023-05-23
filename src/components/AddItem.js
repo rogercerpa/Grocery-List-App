@@ -118,9 +118,10 @@ export default function AddItem(props) {
               required
               id="category"
               name="category"
+              value={selectedOption}
               className="h-full rounded-md border-0 bg-transparent py-0 pl-2 text-gray-500 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm"
             >
-              <option value="" disabled selected>
+              <option value="" disabled>
                 Select an option
               </option>
               <option value="Food">Food</option>
