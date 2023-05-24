@@ -72,7 +72,7 @@ export default function CombinedNavbar(props) {
               </Link>
             </div>
           </div>
-          <div className="hidden sm:flex-grow flex items-center justify-center sm:ml-6 sm:block">
+          <div className="sm:flex-grow flex items-center justify-center sm:ml-6 sm:block">
             {navigation.map((item) => (
               <a
                 key={item.name}
