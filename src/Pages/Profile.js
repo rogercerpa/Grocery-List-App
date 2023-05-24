@@ -53,27 +53,32 @@ const Profile = ({ user }) => {
   const handleSave = async (event) => {
     event.preventDefault();
 
-    // 1. Upload the image to Firebase Storage
-    const storageRef = ref(storage, `profile_photos/${user.uid}`);
-    await uploadBytesResumable(storageRef, photo);
+    try {
+      // 1. Upload the image to Firebase Storage
+      const storageRef = ref(storage, `profile_photos/${user.uid}`);
+      await uploadBytesResumable(storageRef, photo);
 
-    // 2. Get the download URL
-    const url = await getDownloadURL(storageRef);
+      // 2. Get the download URL
+      const url = await getDownloadURL(storageRef);
 
-    // 3. Save the new profile info to Firestore
-    await setDoc(doc(db, "users", user.uid), {
-      username: username,
-      imageUrl: url,
-    });
+      // 3. Save the new profile info to Firestore
+      await setDoc(doc(db, "users", user.uid), {
+        username: username,
+        imageUrl: url,
+      });
 
-    // 4. Update the profile in Firebase Auth
-    await updateProfile(auth.currentUser, {
-      displayName: username,
-      photoURL: url,
-    });
+      // 4. Update the profile in Firebase Auth
+      await updateProfile(auth.currentUser, {
+        displayName: username,
+        photoURL: url,
+      });
 
-    // 5. Toggle editing off
-    setEditing(false);
+      // 5. Toggle editing off
+      setEditing(false);
+    } catch (error) {
+      console.error("An error occurred during file upload:", error);
+      // handle the error appropriately for your application here
+    }
   };
 
   const handleSignOut = async () => {
