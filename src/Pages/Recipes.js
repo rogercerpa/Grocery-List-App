@@ -35,36 +35,49 @@ const Recipes = (props) => {
 
   return (
     <div className="home">
-      <h1>
-        Search for your favorite recipes and add all the ingredients to your
-        grocery list
+      <h1 className="text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl">
+        Find the perfect Recipe!
       </h1>
       {!user && (
-        <p>Sign up or sign in to access the main features of the app.</p>
+        <p className="mt-6 text-lg leading-8 text-gray-600">
+          Sign up or sign in to access the main features of the app.
+        </p>
       )}
 
       {error && <div>Error: {error}</div>}
 
       {user && (
         <div>
-          <p>Start searching today, cook tomorrow!</p>
-          <input
-            type="text"
-            value={searchTerm}
-            onChange={handleSearchTermChange}
-            placeholder="Search for a recipe"
-          />
-          <button
-            onClick={handleSearch}
-            className="mt-6 flex w-64 items-center justify-center rounded-md border border-transparent bg-indigo-600 px-8 py-3 text-base font-medium text-white gap-5 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-          >
-            Search
-          </button>
+          <p className="mt-6 text-lg leading-8 text-gray-600">
+            then, add the ingredients you need to your grocery list!
+          </p>
+
+          <div className="mt-6 flex max-w-md gap-x-4">
+            <input
+              type="text"
+              value={searchTerm}
+              onChange={handleSearchTermChange}
+              placeholder="Search for a recipe"
+              className=" flex rounded-md border-1 bg-white/5 px-3.5 py-2 text-black shadow-md ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset focus:ring-indigo-500 sm:text-sm sm:leading-6"
+            />
+            <button
+              onClick={handleSearch}
+              className="mt-6 flex w-64 items-center justify-center rounded-md border border-transparent bg-indigo-600 px-8 py-3 text-base font-medium text-white gap-5 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+            >
+              Search
+            </button>
+          </div>
           <div>
             {recipes.map((recipe, index) => (
-              <div key={index}>
-                <h2>{recipe.title}</h2>
-                <img src={recipe.image} alt={recipe.title} />
+              <div key={index} className="flex gap-x-4 m-10">
+                <img
+                  src={recipe.image}
+                  alt={recipe.title}
+                  className="h-22 w-22 flex-none rounded-xl bg-gray-50"
+                />
+                <h2 className="text-lg font-semibold leading-6 text-gray-900">
+                  {recipe.title}
+                </h2>
               </div>
             ))}
           </div>
