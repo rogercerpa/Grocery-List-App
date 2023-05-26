@@ -86,9 +86,9 @@ export default function CombinedNavbar(props) {
                 to={item.href}
                 className={classNames(
                   item.current
-                    ? "bg-gray-900 text-white"
-                    : "text-gray-300 hover:bg-gray-700 hover:text-white",
-                  "rounded-md px-3 py-2 text-sm font-medium"
+                    ? "border-b-2 border-black"
+                    : " hover:text-black",
+                  "rounded-md px-3 py-2 text-sm font-medium text-gray-500"
                 )}
                 aria-current={item.current ? "page" : undefined}
               >
