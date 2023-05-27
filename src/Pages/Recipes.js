@@ -20,6 +20,8 @@ const Recipes = (props) => {
         url: "https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/complexSearch",
         params: {
           query: searchTerm,
+          fillIngredients: "true",
+          addRecipeInformation: "true",
         },
         headers: {
           "X-RapidAPI-Key": process.env.REACT_APP_RAPIDAPI_KEY,
@@ -27,7 +29,7 @@ const Recipes = (props) => {
             "spoonacular-recipe-food-nutrition-v1.p.rapidapi.com",
         },
       });
-
+      console.log(result.data.results);
       setRecipes(result.data.results);
     } catch (err) {
       setError(err.toString());
@@ -79,6 +81,17 @@ const Recipes = (props) => {
                 <h2 className="text-lg font-semibold leading-6 text-gray-900">
                   {recipe.title}
                 </h2>
+                <h3 className="text-md font-semibold leading-6 text-gray-900">
+                  Cooking Time: {recipe.cookingMinutes} minutes
+                </h3>
+                {/* <p className="text-md text-gray-600">{recipe.summary}</p> */}
+                <ul className="list-disc pl-5">
+                  {recipe.extendedIngredients.map(
+                    (ingredient, ingredientIndex) => (
+                      <li key={ingredientIndex}>{ingredient.name}</li>
+                    )
+                  )}
+                </ul>
               </div>
             ))}
           </div>
