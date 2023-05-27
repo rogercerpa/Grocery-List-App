@@ -52,17 +52,17 @@ const Recipes = (props) => {
             then, add the ingredients you need to your grocery list!
           </p>
 
-          <div className="mt-6 flex max-w-md gap-x-4">
+          <div className="mt-6 flex flex-wrap gap-x-4">
             <input
               type="text"
               value={searchTerm}
               onChange={handleSearchTermChange}
               placeholder="Search for a recipe"
-              className=" flex rounded-md border-1 bg-white/5 px-3.5 py-2 text-black shadow-md ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset focus:ring-indigo-500 sm:text-sm sm:leading-6"
+              className="w-full sm:w-auto flex-grow rounded-md border-1 bg-white/5 px-3.5 py-2 text-black shadow-md ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset focus:ring-indigo-500 sm:text-sm sm:leading-6"
             />
             <button
               onClick={handleSearch}
-              className="mt-6 flex w-64 items-center justify-center rounded-md border border-transparent bg-indigo-600 px-8 py-3 text-base font-medium text-white gap-5 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+              className="mt-6 sm:mt-0 w-full sm:w-auto flex-none sm:flex-grow-0 items-center justify-center rounded-md border border-transparent bg-indigo-600 px-8 py-3 text-base font-medium text-white gap-5 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
             >
               Search
             </button>
