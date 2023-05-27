@@ -11,7 +11,8 @@ const Recipes = (props) => {
     setSearchTerm(event.target.value);
   };
 
-  const handleSearch = async () => {
+  const handleSearch = async (e) => {
+    e.preventDefault();
     setError(null);
     try {
       const result = await axios({
@@ -52,7 +53,7 @@ const Recipes = (props) => {
             then, add the ingredients you need to your grocery list!
           </p>
 
-          <div className="mt-6 flex flex-wrap gap-x-4">
+          <form onSubmit={handleSearch} className="mt-6 flex flex-wrap gap-x-4">
             <input
               type="text"
               value={searchTerm}
@@ -61,12 +62,12 @@ const Recipes = (props) => {
               className="w-full sm:w-auto flex-grow rounded-md border-1 bg-white/5 px-3.5 py-2 text-black shadow-md ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset focus:ring-indigo-500 sm:text-sm sm:leading-6"
             />
             <button
-              onClick={handleSearch}
+              type="submit"
               className="mt-6 sm:mt-0 w-full sm:w-auto flex-none sm:flex-grow-0 items-center justify-center rounded-md border border-transparent bg-indigo-600 px-8 py-3 text-base font-medium text-white gap-5 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
             >
               Search
             </button>
-          </div>
+          </form>
           <div>
             {recipes.map((recipe, index) => (
               <div key={index} className="flex gap-x-4 m-10">
