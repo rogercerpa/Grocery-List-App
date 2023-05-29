@@ -93,12 +93,6 @@ export default function AddItem(props) {
         className="flex flex-col gap-1 items-center"
         onSubmit={handleSubmit}
       >
-        <label
-          htmlFor="product"
-          className=" text-sm font-medium leading-6 text-gray-900"
-        >
-          Product
-        </label>
         <div className="relative mt-2 rounded-md shadow-sm">
           <input
             type="text"
@@ -110,9 +104,6 @@ export default function AddItem(props) {
             value={itemName}
           />
           <div className="absolute inset-y-0 right-0 flex items-center">
-            {/* <label htmlFor="product" className="sr-only">
-              Product
-            </label> */}
             <select
               onChange={handleSelectChange}
               required
@@ -122,7 +113,7 @@ export default function AddItem(props) {
               className="h-full rounded-md border-0 bg-transparent py-0 pl-2 text-gray-500 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm"
             >
               <option value="" disabled>
-                Select an option
+                Select Category
               </option>
               <option value="Food">Food</option>
               <option value="Home Items">Home Items</option>
