@@ -1,11 +1,36 @@
 import React, { useState } from "react";
 import axios from "axios";
+import { firebaseConfig } from "../firebaseConfig";
+import { initializeApp } from "firebase/app";
+import {
+  getDatabase,
+  ref,
+  onValue,
+  remove,
+  off,
+  set,
+  push,
+} from "firebase/database";
 
 const Recipes = (props) => {
   const [searchTerm, setSearchTerm] = useState("");
   const [recipes, setRecipes] = useState([]);
   const [error, setError] = useState(null);
   const { user, setUser, auth } = props;
+  const [feedback, setFeedback] = useState("");
+
+  const app = initializeApp(firebaseConfig);
+  const db = getDatabase(app);
+
+  const addItemToDatabase = async (item) => {
+    try {
+      await db.collection("products").add({ name: item });
+      setFeedback(`Successfully added ${item} to the database.`);
+    } catch (error) {
+      console.error("Error adding document: ", error);
+      setFeedback("Failed to add item. Please try again.");
+    }
+  };
 
   const handleSearchTermChange = (event) => {
     setSearchTerm(event.target.value);
@@ -37,7 +62,7 @@ const Recipes = (props) => {
   };
 
   return (
-    <div className="home">
+    <div className="w-full flex flex-col items-center ">
       <h1 className="text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl">
         Find the perfect Recipe!
       </h1>
@@ -50,12 +75,12 @@ const Recipes = (props) => {
       {error && <div>Error: {error}</div>}
 
       {user && (
-        <div>
+        <div className="">
           <p className="mt-6 text-lg leading-8 text-gray-600">
             then, add the ingredients you need to your grocery list!
           </p>
 
-          <form onSubmit={handleSearch} className="mt-6 flex flex-wrap gap-x-4">
+          <form onSubmit={handleSearch} className="m-6 flex flex-wrap gap-x-4">
             <input
               type="text"
               value={searchTerm}
@@ -70,28 +95,35 @@ const Recipes = (props) => {
               Search
             </button>
           </form>
-          <div>
+          <div className="flex flex-col gap-10 w-full ">
             {recipes.map((recipe, index) => (
-              <div key={index} className="flex gap-x-4 m-10">
-                <img
-                  src={recipe.image}
-                  alt={recipe.title}
-                  className="h-22 w-22 flex-none rounded-xl bg-gray-50"
-                />
-                <h2 className="text-lg font-semibold leading-6 text-gray-900">
-                  {recipe.title}
-                </h2>
-                <h3 className="text-md font-semibold leading-6 text-gray-900">
-                  Cooking Time: {recipe.cookingMinutes} minutes
-                </h3>
-                {/* <p className="text-md text-gray-600">{recipe.summary}</p> */}
-                <ul className="list-disc pl-5">
-                  {recipe.extendedIngredients.map(
-                    (ingredient, ingredientIndex) => (
-                      <li key={ingredientIndex}>{ingredient.name}</li>
-                    )
-                  )}
-                </ul>
+              <div
+                key={index}
+                className="flex flex-col items-center bg-white border border-gray-200 rounded-lg shadow md:flex-row md:max-w-xl dark:border-gray-700 dark:bg-gray-800 gap-5"
+              >
+                <img src={recipe.image} alt={recipe.title} className=" " />
+                <div className="flex flex-col justify-between p-4 leading-normal">
+                  <h2 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
+                    {recipe.title}
+                  </h2>
+                  <h3 className="mb-3 font-normal text-gray-700 dark:text-gray-400">
+                    Cooking Time: {recipe.cookingMinutes} minutes
+                  </h3>
+                  <p className="text-md text-gray-600">{feedback}</p>
+                  <ul className="list-disc pl-5">
+                    {recipe.extendedIngredients.map(
+                      (ingredient, ingredientIndex) => (
+                        <li
+                          className="text-gray-500"
+                          key={ingredientIndex}
+                          onClick={() => addItemToDatabase(ingredient.name)}
+                        >
+                          {ingredient.name}
+                        </li>
+                      )
+                    )}
+                  </ul>
+                </div>
               </div>
             ))}
           </div>
