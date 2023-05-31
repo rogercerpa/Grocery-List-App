@@ -47,7 +47,7 @@ export default function GroceryList(props) {
               {groupedItems[category].map((item) => (
                 <div
                   key={item.id}
-                  className="flex flex-row justify-center shrink-0 justify-between rounded-md bg-sky-500/100"
+                  className="flex flex-row  shrink-0 justify-between rounded-md bg-sky-500/100"
                 >
                   <li className="m-1 shadow-md font-bold p-1.5">
                     {item.itemName}

@@ -32,7 +32,7 @@ const Recipes = (props) => {
       // Create a new product object
       const newProduct = {
         id: newProductRef.key, // The key of the new product ref
-        name: item, // The name of the product
+        itemName: item, // The name of the product
         category: "Food",
       };
 
