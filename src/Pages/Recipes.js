@@ -22,9 +22,24 @@ const Recipes = (props) => {
   const app = initializeApp(firebaseConfig);
   const db = getDatabase(app);
 
-  const addItemToDatabase = async (item) => {
+  const addItemToDatabase = (item) => {
     try {
-      await db.collection("products").add({ name: item });
+      const productsInDB = ref(db, "products");
+
+      // Create a new product reference
+      const newProductRef = push(productsInDB);
+
+      // Create a new product object
+      const newProduct = {
+        id: newProductRef.key, // The key of the new product ref
+        name: item, // The name of the product
+        category: "Food",
+      };
+
+      // Set the new product reference to the new product object
+      set(newProductRef, newProduct);
+
+      // Show a success message
       setFeedback(`Successfully added ${item} to the database.`);
     } catch (error) {
       console.error("Error adding document: ", error);
@@ -110,11 +125,11 @@ const Recipes = (props) => {
                     Cooking Time: {recipe.cookingMinutes} minutes
                   </h3>
                   <p className="text-md text-gray-600">{feedback}</p>
-                  <ul className="list-disc pl-5">
+                  <ul className=" flex flex-row flex-wrap gap-2 p-1">
                     {recipe.extendedIngredients.map(
                       (ingredient, ingredientIndex) => (
                         <li
-                          className="text-gray-500"
+                          className="text-gray-500 bg-white content-center p-1 cursor-pointer rounded-md"
                           key={ingredientIndex}
                           onClick={() => addItemToDatabase(ingredient.name)}
                         >
