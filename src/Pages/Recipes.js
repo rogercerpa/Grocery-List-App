@@ -129,7 +129,7 @@ const Recipes = (props) => {
                     {recipe.extendedIngredients.map(
                       (ingredient, ingredientIndex) => (
                         <li
-                          className="text-gray-500 bg-white content-center p-1 cursor-pointer rounded-md"
+                          className="text-gray-500 bg-white content-center p-1 cursor-pointer rounded-md hover:bg-slate-300"
                           key={ingredientIndex}
                           onClick={() => addItemToDatabase(ingredient.name)}
                         >
