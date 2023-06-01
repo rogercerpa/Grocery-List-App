@@ -2,21 +2,13 @@ import React, { useState } from "react";
 import axios from "axios";
 import { firebaseConfig } from "../firebaseConfig";
 import { initializeApp } from "firebase/app";
-import {
-  getDatabase,
-  ref,
-  onValue,
-  remove,
-  off,
-  set,
-  push,
-} from "firebase/database";
+import { getDatabase, ref, set, push } from "firebase/database";
 
 const Recipes = (props) => {
   const [searchTerm, setSearchTerm] = useState("");
   const [recipes, setRecipes] = useState([]);
   const [error, setError] = useState(null);
-  const { user, setUser, auth } = props;
+  const { user } = props;
   const [feedback, setFeedback] = useState("");
 
   const app = initializeApp(firebaseConfig);

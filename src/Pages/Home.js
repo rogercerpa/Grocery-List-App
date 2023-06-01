@@ -3,7 +3,7 @@ import AddItems from "../components/AddItem";
 import Image from "../components/Image";
 
 const Home = (props) => {
-  const { user, setUser, auth } = props;
+  const { user } = props;
   return (
     <div className="w-full flex flex-col items-center ">
       <h1 className="text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl">
