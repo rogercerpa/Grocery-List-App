@@ -1,8 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { firebaseConfig } from "../firebaseConfig";
 import { initializeApp } from "firebase/app";
-import { getDatabase, ref, set, push } from "firebase/database";
+import { getDatabase, ref, set, push, get, child } from "firebase/database";
 
 const Recipes = (props) => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -10,11 +10,44 @@ const Recipes = (props) => {
   const [error, setError] = useState(null);
   const { user } = props;
   const [feedback, setFeedback] = useState("");
-
+  const [ingredientsInDB, setIngredientsInDB] = useState([]);
   const app = initializeApp(firebaseConfig);
   const db = getDatabase(app);
 
-  const addItemToDatabase = (item) => {
+  const fetchIngredients = async () => {
+    const response = await get(child(ref(db), "/products"));
+    const data = response.val();
+    const ingredients = data
+      ? Object.values(data).map((item) => item.itemName)
+      : [];
+    setIngredientsInDB(ingredients);
+  };
+
+  useEffect(() => {
+    // Fetch current ingredients from database on component mount
+    const fetchIngredients = async () => {
+      const response = await db.ref("/products").once("value");
+      const data = response.val();
+      const ingredients = data
+        ? Object.values(data).map((item) => item.itemName)
+        : [];
+      setIngredientsInDB(ingredients);
+    };
+
+    fetchIngredients();
+  }, []);
+
+  const addItemToDatabase = async (item) => {
+    // Check if the ingredient is already in the database
+    if (ingredientsInDB.includes(item)) {
+      setFeedback(` ${item} is already in your grocery list.`);
+      // Set a timer to clear the feedback message after 5 seconds
+      setTimeout(() => {
+        setFeedback("");
+      }, 5000);
+      return;
+    }
+
     try {
       const productsInDB = ref(db, "products");
 
@@ -33,9 +66,14 @@ const Recipes = (props) => {
 
       // Show a success message
       setFeedback(` ${item} added.`);
+
+      // Set a timer to clear the feedback message after 5 seconds
       setTimeout(() => {
         setFeedback("");
       }, 5000);
+
+      // Update local copy of ingredients
+      setIngredientsInDB([...ingredientsInDB, item]);
     } catch (error) {
       console.error("Error adding document: ", error);
       setFeedback("Failed to add item. Please try again.");
@@ -66,6 +104,7 @@ const Recipes = (props) => {
       });
       console.log(result.data.results);
       setRecipes(result.data.results);
+      fetchIngredients();
     } catch (err) {
       setError(err.toString());
     }
@@ -124,7 +163,11 @@ const Recipes = (props) => {
                     {recipe.extendedIngredients.map(
                       (ingredient, ingredientIndex) => (
                         <li
-                          className="text-gray-500 bg-white content-center p-1 cursor-pointer rounded-md hover:bg-slate-300"
+                          className={`text-gray-500 content-center p-1 cursor-pointer rounded-md ${
+                            ingredientsInDB.includes(ingredient.name)
+                              ? "bg-red-300" // Change the background color here if the ingredient is already in the database
+                              : "bg-green-300"
+                          }`}
                           key={ingredientIndex}
                           onClick={() => addItemToDatabase(ingredient.name)}
                         >
