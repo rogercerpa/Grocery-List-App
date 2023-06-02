@@ -32,7 +32,10 @@ const Recipes = (props) => {
       set(newProductRef, newProduct);
 
       // Show a success message
-      setFeedback(`Successfully added ${item} to the database.`);
+      setFeedback(` ${item} added.`);
+      setTimeout(() => {
+        setFeedback("");
+      }, 5000);
     } catch (error) {
       console.error("Error adding document: ", error);
       setFeedback("Failed to add item. Please try again.");
@@ -116,7 +119,7 @@ const Recipes = (props) => {
                   <h3 className="mb-3 font-normal text-gray-700 dark:text-gray-400">
                     Cooking Time: {recipe.cookingMinutes} minutes
                   </h3>
-                  <p className="text-md text-gray-600">{feedback}</p>
+                  <p className="text-md text-gray-500">{feedback}</p>
                   <ul className=" flex flex-row flex-wrap gap-2 p-1">
                     {recipe.extendedIngredients.map(
                       (ingredient, ingredientIndex) => (
