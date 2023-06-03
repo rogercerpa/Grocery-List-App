@@ -35,7 +35,7 @@ const Recipes = (props) => {
     };
 
     fetchIngredients();
-  }, []);
+  }, [db, user]);
 
   const addItemToDatabase = async (item) => {
     // Check if the ingredient is already in the database
