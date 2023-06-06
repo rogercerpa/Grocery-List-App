@@ -148,22 +148,26 @@ const Recipes = (props) => {
             {recipes.map((recipe, index) => (
               <div
                 key={index}
-                className="flex flex-col items-center bg-white border border-gray-200 rounded-lg shadow md:flex-row md:max-w-xl dark:border-gray-700 dark:bg-gray-800 gap-5"
+                className="flex flex-col items-center bg-white border border-gray-200 rounded-lg shadow md:flex-row md:max-w-xl object-cover"
               >
-                <img src={recipe.image} alt={recipe.title} className=" " />
-                <div className="flex flex-col justify-between p-4 leading-normal">
-                  <h2 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
+                <img
+                  src={recipe.image}
+                  alt={recipe.title}
+                  className="w-full h-max object-cover"
+                />
+                <div className="p-4 flex flex-col justify-between h-64 overflow-auto">
+                  <h2 className="mb-2 text-2xl font-bold tracking-tight text-gray-900">
                     {recipe.title}
                   </h2>
                   <h3 className="mb-3 font-normal text-gray-700 dark:text-gray-400">
                     Cooking Time: {recipe.cookingMinutes} minutes
                   </h3>
                   <p className="text-md text-gray-500">{feedback}</p>
-                  <ul className=" flex flex-row flex-wrap gap-2 p-1">
+                  <ul className="flex flex-row flex-wrap gap-1 p-1">
                     {recipe.extendedIngredients.map(
                       (ingredient, ingredientIndex) => (
                         <li
-                          className={`text-gray-500 content-center p-1 cursor-pointer rounded-md ${
+                          className={`text-gray-500 content-center p-1 cursor-pointer rounded-md text-xs ${
                             ingredientsInDB.includes(ingredient.name)
                               ? "bg-red-300" // Change the background color here if the ingredient is already in the database
                               : "bg-green-300"
