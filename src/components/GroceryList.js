@@ -43,17 +43,17 @@ export default function GroceryList(props) {
             </button>
           </div>
           {visibleCategories[category] && (
-            <ul className="flex flex-col gap-1 list-none">
+            <ul className="flex flex-col gap-1 list-none border border-gray-700">
               {groupedItems[category].map((item) => (
                 <div
                   key={item.id}
-                  className="flex flex-row  shrink-0 justify-between rounded-md bg-sky-500/100"
+                  className="flex flex-col sm:flex-row justify-between rounded-md bg-sky-500/100"
                 >
-                  <li className="m-1 shadow-md font-bold p-1.5">
+                  <li className="m-1 shadow-md font-bold p-1.5 flex-grow whitespace-normal break-words">
                     {item.itemName}
                   </li>
                   <button
-                    className="p-1.5"
+                    className="p-1.5 flex justify-center items-center sm:self-auto bg-sky-400/100 hover:bg-sky-700/100 border border-gray-700"
                     onClick={() => handleDelete(item.id)}
                   >
                     <AiFillDelete />
