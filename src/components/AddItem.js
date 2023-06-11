@@ -88,7 +88,7 @@ export default function AddItem(props) {
   }, [productsInDB]);
 
   return (
-    <div className=" container mx-auto px-4 space-y-4 divide-y-4 divide-slate-400/25">
+    <div className=" container mx-auto p-5 space-y-4 divide-y-4 divide-slate-400/25">
       <form
         className="flex flex-col gap-1 items-center"
         onSubmit={handleSubmit}
@@ -123,7 +123,7 @@ export default function AddItem(props) {
           </div>
         </div>
 
-        <button className="mt-6 flex w-64 items-center justify-center rounded-md border border-transparent bg-indigo-600 px-8 py-3 text-base font-medium text-white gap-5 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
+        <button className="mt-6 flex w-64 items-center justify-center rounded-md border border-transparent bg-blue-700 px-8 py-3 text-base font-medium text-white gap-5 hover:bg-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-300 focus:ring-offset-2">
           Add to Cart
           <ImCart />
         </button>

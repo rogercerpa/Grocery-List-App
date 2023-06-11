@@ -36,14 +36,14 @@ export default function GroceryList(props) {
         <div className="flex flex-col" key={category}>
           <div className=" justify-items-center p-2 ">
             <button
-              className="ml-3 bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded focus:outline-none focus:shadow-outline"
+              className="ml-3 bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded focus:outline-none focus:shadow-outline w-32 h-10 "
               onClick={() => toggleCategory(category)}
             >
               {visibleCategories[category] ? `${category}` : `${category}`}
             </button>
           </div>
           {visibleCategories[category] && (
-            <ul className="flex flex-col gap-1 list-none border border-gray-700">
+            <ul className="flex flex-col gap-1 list-none  ">
               {groupedItems[category].map((item) => (
                 <div
                   key={item.id}
@@ -53,7 +53,7 @@ export default function GroceryList(props) {
                     {item.itemName}
                   </li>
                   <button
-                    className="p-1.5 flex justify-center items-center sm:self-auto bg-sky-400/100 hover:bg-sky-700/100 border border-gray-700"
+                    className="p-1.5 flex justify-center items-center sm:self-auto bg-red-400/100 hover:bg-red-700/100 rounded-md "
                     onClick={() => handleDelete(item.id)}
                   >
                     <AiFillDelete />
