@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import axios from "axios";
 import { firebaseConfig } from "../firebaseConfig";
 import { initializeApp } from "firebase/app";
@@ -14,28 +14,45 @@ const Recipes = (props) => {
   const app = initializeApp(firebaseConfig);
   const db = getDatabase(app);
 
-  const fetchIngredients = async () => {
+  // Load search results from local storage
+  useEffect(() => {
+    const storedRecipes = localStorage.getItem("recipes");
+    if (storedRecipes) {
+      setRecipes(JSON.parse(storedRecipes));
+    }
+  }, []);
+
+  // Save search results to local storage
+  useEffect(() => {
+    localStorage.setItem("recipes", JSON.stringify(recipes));
+  }, [recipes]);
+
+  const fetchIngredients = useCallback(async () => {
     const response = await get(child(ref(db), "/products"));
     const data = response.val();
     const ingredients = data
       ? Object.values(data).map((item) => item.itemName)
       : [];
     setIngredientsInDB(ingredients);
-  };
+  }, [db]);
 
   useEffect(() => {
-    // Fetch current ingredients from database on component mount
-    const fetchIngredients = async () => {
-      const response = await db.ref("/products").once("value");
-      const data = response.val();
-      const ingredients = data
-        ? Object.values(data).map((item) => item.itemName)
-        : [];
-      setIngredientsInDB(ingredients);
-    };
-
     fetchIngredients();
-  }, [db, user]);
+  }, [fetchIngredients]);
+
+  // useEffect(() => {
+  //   // Fetch current ingredients from database on component mount
+  //   const fetchIngredients = async () => {
+  //     const response = await db.ref("/products").once("value");
+  //     const data = response.val();
+  //     const ingredients = data
+  //       ? Object.values(data).map((item) => item.itemName)
+  //       : [];
+  //     setIngredientsInDB(ingredients);
+  //   };
+
+  //   fetchIngredients();
+  // }, [db, user]);
 
   const addItemToDatabase = async (item) => {
     // Check if the ingredient is already in the database
@@ -163,11 +180,11 @@ const Recipes = (props) => {
                     Cooking Time: {recipe.cookingMinutes} minutes
                   </h3>
                   <p className="text-md text-gray-500">{feedback}</p>
-                  <ul className="flex flex-row flex-wrap gap-1 p-1">
+                  <ul className="flex flex-row flex-wrap gap-1 p-1 order-4">
                     {recipe.extendedIngredients.map(
                       (ingredient, ingredientIndex) => (
                         <li
-                          className={`text-gray-500 content-center p-1 cursor-pointer rounded-md text-xs ${
+                          className={`text-gray-500 content-center p-1 cursor-pointer rounded-md sm:text-base md:text-lg ${
                             ingredientsInDB.includes(ingredient.name)
                               ? "bg-red-300" // Change the background color here if the ingredient is already in the database
                               : "bg-green-300"
