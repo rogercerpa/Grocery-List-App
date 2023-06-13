@@ -60,17 +60,6 @@ export default function CombinedNavbar(props) {
       {({ open }) => (
         <>
           <div className="flex items-center">
-            {/* Mobile menu button */}
-            <div className="flex items-center sm:hidden">
-              <Disclosure.Button className="inline-flex items-center justify-center rounded-md p-2 text-gray-400 hover:bg-gray-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white">
-                <span className="sr-only">Open main menu</span>
-                {open ? (
-                  <FaTimes className="block h-6 w-6" aria-hidden="true" />
-                ) : (
-                  <FaBars className="block h-6 w-6" aria-hidden="true" />
-                )}
-              </Disclosure.Button>
-            </div>
             <div className="flex-shrink-0 items-center">
               <Link to="/">
                 <img
@@ -85,9 +74,20 @@ export default function CombinedNavbar(props) {
                 />
               </Link>
             </div>
+            {/* Mobile menu button */}
+            <div className="flex items-center sm:hidden">
+              <Disclosure.Button className="inline-flex items-center justify-center rounded-md p-2 text-gray-400 hover:bg-gray-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white">
+                <span className="sr-only">Open main menu</span>
+                {open ? (
+                  <FaTimes className="block h-6 w-6" aria-hidden="true" />
+                ) : (
+                  <FaBars className="block h-6 w-6" aria-hidden="true" />
+                )}
+              </Disclosure.Button>
+            </div>
           </div>
 
-          <div className="md:flex-grow flex items-center justify-center sm:hidden md:ml-6 md:block">
+          <div className="hidden md:flex md:flex-grow items-center justify-center md:ml-6">
             {updatedNavigation.map((item) => (
               <Link
                 key={item.name}
