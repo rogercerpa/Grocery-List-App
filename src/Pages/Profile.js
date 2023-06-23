@@ -149,6 +149,7 @@ const Profile = ({ user }) => {
                   type="text"
                   value={username}
                   onChange={handleUsernameChange}
+                  className="w-full border-gray-300 p-2 rounded-md"
                 />
               </label>
               <label>
@@ -157,9 +158,15 @@ const Profile = ({ user }) => {
                   type="file"
                   accept="image/*"
                   onChange={handlePhotoChange}
+                  className="w-full border-gray-300 p-2 rounded-md"
                 />
               </label>
-              <button type="submit">Save</button>
+              <button
+                type="submit"
+                className="w-full bg-blue-500 text-white p-2 rounded-md"
+              >
+                Save
+              </button>
             </form>
           )}
         </div>
