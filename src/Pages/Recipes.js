@@ -3,6 +3,7 @@ import axios from "axios";
 import { firebaseConfig } from "../firebaseConfig";
 import { initializeApp } from "firebase/app";
 import { getDatabase, ref, set, push, get, child } from "firebase/database";
+import RecipeDetails from "../components/RecipeDetails";
 
 const Recipes = (props) => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -127,6 +128,14 @@ const Recipes = (props) => {
     }
   };
 
+  const [selectedRecipe, setSelectedRecipe] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const openModal = (recipe) => {
+    setSelectedRecipe(recipe);
+    setIsModalOpen(true);
+  };
+
   return (
     <div className="w-full flex flex-col items-center ">
       <h1 className="text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl">
@@ -171,6 +180,7 @@ const Recipes = (props) => {
                   src={recipe.image}
                   alt={recipe.title}
                   className="w-full h-max object-cover"
+                  onClick={() => openModal(recipe)}
                 />
                 <div className="p-4 flex flex-col justify-between h-64 overflow-auto">
                   <h2 className="mb-2 text-2xl font-bold tracking-tight text-gray-900">
@@ -201,6 +211,11 @@ const Recipes = (props) => {
               </div>
             ))}
           </div>
+          <RecipeDetails
+            isOpen={isModalOpen}
+            onRequestClose={() => setIsModalOpen(false)}
+            recipe={selectedRecipe}
+          />
         </div>
       )}
     </div>
