@@ -4,6 +4,10 @@ import { firebaseConfig } from "../firebaseConfig";
 import { initializeApp } from "firebase/app";
 import { getDatabase, ref, set, push, get, child } from "firebase/database";
 import RecipeDetails from "../components/RecipeDetails";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
+import { getFirestore, doc, setDoc, arrayUnion } from "firebase/firestore";
+import { StarIcon as StarIconOutline } from "@heroicons/react/24/outline";
+import { StarIcon as StarIconSolid } from "@heroicons/react/20/solid";
 
 const Recipes = (props) => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -14,6 +18,34 @@ const Recipes = (props) => {
   const [ingredientsInDB, setIngredientsInDB] = useState([]);
   const app = initializeApp(firebaseConfig);
   const db = getDatabase(app);
+  const auth = getAuth();
+  const firestore = getFirestore();
+  const [favoritedRecipeIds, setFavoritedRecipeIds] = useState([]);
+
+  //save recipe to users favorites list
+  const saveRecipeAsFavorite = async (recipe) => {
+    try {
+      const recipeData = { ...recipe, id: recipe.id.toString() };
+      await setDoc(
+        doc(
+          firestore,
+          "users",
+          auth.currentUser.uid,
+          "favoriteRecipes",
+          recipe.id.toString()
+        ),
+        recipeData,
+        { merge: true }
+      );
+      alert("Recipe saved as favorite!");
+      setFavoritedRecipeIds((prevState) => [
+        ...prevState,
+        recipe.id.toString(),
+      ]);
+    } catch (error) {
+      console.error("Error saving recipe as favorite: ", error);
+    }
+  };
 
   // Load search results from local storage
   useEffect(() => {
@@ -207,6 +239,13 @@ const Recipes = (props) => {
                       )
                     )}
                   </ul>
+                  <button onClick={() => saveRecipeAsFavorite(recipe)}>
+                    {favoritedRecipeIds.includes(recipe.id.toString()) ? (
+                      <StarIconSolid className="h-6 w-6 text-yellow-500" />
+                    ) : (
+                      <StarIconOutline className="h-6 w-6 text-yellow-500" />
+                    )}
+                  </button>
                 </div>
               </div>
             ))}
