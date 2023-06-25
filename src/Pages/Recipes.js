@@ -187,13 +187,18 @@ const Recipes = (props) => {
             then, add the ingredients you need to your grocery list!
           </p>
 
-          <form onSubmit={handleSearch} className="m-6 flex flex-wrap gap-x-4">
+          {/* recipe search bar */}
+
+          <form
+            onSubmit={handleSearch}
+            className="m-6 flex flex-wrap gap-x-4 justify-center mx-auto max-w-2/3"
+          >
             <input
               type="text"
               value={searchTerm}
               onChange={handleSearchTermChange}
               placeholder="Search for a recipe"
-              className="w-full sm:w-auto flex-grow rounded-md border-1 bg-white/5 px-3.5 py-2 text-black shadow-md ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset focus:ring-indigo-500 sm:text-sm sm:leading-6"
+              className="w-full sm:w-2/3 rounded-md border-1 bg-white/5 px-3.5 py-2 text-black shadow-md ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset focus:ring-indigo-500 sm:text-sm sm:leading-6"
             />
             <button
               type="submit"
@@ -202,6 +207,9 @@ const Recipes = (props) => {
               Search
             </button>
           </form>
+
+          {/* recipe results  */}
+
           <div className="flex flex-col gap-10 w-full p-10 ">
             <div className="mt-6 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-4 xl:gap-x-8">
               {recipes.map((recipe, index) => (
@@ -235,6 +243,8 @@ const Recipes = (props) => {
               ))}
             </div>
           </div>
+
+          {/* recipe details */}
 
           <RecipeDetails
             isOpen={isModalOpen}
