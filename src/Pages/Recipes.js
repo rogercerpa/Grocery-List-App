@@ -229,7 +229,6 @@ const Recipes = (props) => {
                     <h3 className="text-sm  text-gray-700">
                       Cooking Time: {recipe.cookingMinutes} minutes
                     </h3>
-                    <p className="text-md text-gray-500">{feedback}</p>
 
                     <button onClick={() => saveRecipeAsFavorite(recipe)}>
                       {favoritedRecipeIds.includes(recipe.id.toString()) ? (
@@ -252,6 +251,7 @@ const Recipes = (props) => {
             recipe={selectedRecipe}
             ingredientsInDB={ingredientsInDB}
             addItemToDatabase={addItemToDatabase}
+            feedback={feedback}
           />
         </div>
       )}
