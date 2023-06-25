@@ -14,7 +14,13 @@ const customStyles = {
   },
 };
 
-const RecipeDetails = ({ isOpen, onRequestClose, recipe }) => {
+const RecipeDetails = ({
+  isOpen,
+  onRequestClose,
+  recipe,
+  ingredientsInDB,
+  addItemToDatabase,
+}) => {
   return (
     <Modal
       isOpen={isOpen}
@@ -33,7 +39,21 @@ const RecipeDetails = ({ isOpen, onRequestClose, recipe }) => {
             className="rounded-lg bg-gray-100 mt-4"
           />
           <p className="mt-4 text-gray-500">
-            {/* Insert additional recipe details here */}
+            <ul className="flex flex-row flex-wrap gap-1 p-1 order-4">
+              {recipe.extendedIngredients.map((ingredient, ingredientIndex) => (
+                <li
+                  className={`text-gray-500 content-center p-1 cursor-pointer rounded-md sm:text-base md:text-lg ${
+                    ingredientsInDB.includes(ingredient.name)
+                      ? "bg-red-300" // Change the background color here if the ingredient is already in the database
+                      : "bg-green-300"
+                  }`}
+                  key={ingredientIndex}
+                  onClick={() => addItemToDatabase(ingredient.name)}
+                >
+                  {ingredient.name}
+                </li>
+              ))}
+            </ul>
           </p>
           <button
             onClick={onRequestClose}

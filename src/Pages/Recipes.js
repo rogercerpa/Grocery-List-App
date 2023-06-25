@@ -202,58 +202,46 @@ const Recipes = (props) => {
               Search
             </button>
           </form>
-          <div className="flex flex-col gap-10 w-full ">
-            {recipes.map((recipe, index) => (
-              <div
-                key={index}
-                className="flex flex-col items-center bg-white border border-gray-200 rounded-lg shadow md:flex-row md:max-w-xl object-cover"
-              >
-                <img
-                  src={recipe.image}
-                  alt={recipe.title}
-                  className="w-full h-max object-cover"
-                  onClick={() => openModal(recipe)}
-                />
-                <div className="p-4 flex flex-col justify-between h-64 overflow-auto">
-                  <h2 className="mb-2 text-2xl font-bold tracking-tight text-gray-900">
-                    {recipe.title}
-                  </h2>
-                  <h3 className="mb-3 font-normal text-gray-700 dark:text-gray-400">
-                    Cooking Time: {recipe.cookingMinutes} minutes
-                  </h3>
-                  <p className="text-md text-gray-500">{feedback}</p>
-                  <ul className="flex flex-row flex-wrap gap-1 p-1 order-4">
-                    {recipe.extendedIngredients.map(
-                      (ingredient, ingredientIndex) => (
-                        <li
-                          className={`text-gray-500 content-center p-1 cursor-pointer rounded-md sm:text-base md:text-lg ${
-                            ingredientsInDB.includes(ingredient.name)
-                              ? "bg-red-300" // Change the background color here if the ingredient is already in the database
-                              : "bg-green-300"
-                          }`}
-                          key={ingredientIndex}
-                          onClick={() => addItemToDatabase(ingredient.name)}
-                        >
-                          {ingredient.name}
-                        </li>
-                      )
-                    )}
-                  </ul>
-                  <button onClick={() => saveRecipeAsFavorite(recipe)}>
-                    {favoritedRecipeIds.includes(recipe.id.toString()) ? (
-                      <StarIconSolid className="h-6 w-6 text-yellow-500" />
-                    ) : (
-                      <StarIconOutline className="h-6 w-6 text-yellow-500" />
-                    )}
-                  </button>
+          <div className="flex flex-col gap-10 w-full p-10 ">
+            <div className="mt-6 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-4 xl:gap-x-8">
+              {recipes.map((recipe, index) => (
+                <div key={index} className="group relative">
+                  <div className="aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-md bg-gray-200 lg:aspect-none group-hover:opacity-75 lg:h-80">
+                    <img
+                      src={recipe.image}
+                      alt={recipe.title}
+                      className="h-full w-full object-cover object-center lg:h-full lg:w-full"
+                      onClick={() => openModal(recipe)}
+                    />
+                  </div>
+                  <div className="mt-4 flex justify-between">
+                    <h2 className="text-sm font-medium text-gray-900">
+                      {recipe.title}
+                    </h2>
+                    <h3 className="text-sm  text-gray-700">
+                      Cooking Time: {recipe.cookingMinutes} minutes
+                    </h3>
+                    <p className="text-md text-gray-500">{feedback}</p>
+
+                    <button onClick={() => saveRecipeAsFavorite(recipe)}>
+                      {favoritedRecipeIds.includes(recipe.id.toString()) ? (
+                        <StarIconSolid className="h-6 w-6 text-yellow-500" />
+                      ) : (
+                        <StarIconOutline className="h-6 w-6 text-yellow-500" />
+                      )}
+                    </button>
+                  </div>
                 </div>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
+
           <RecipeDetails
             isOpen={isModalOpen}
             onRequestClose={() => setIsModalOpen(false)}
             recipe={selectedRecipe}
+            ingredientsInDB={ingredientsInDB}
+            addItemToDatabase={addItemToDatabase}
           />
         </div>
       )}
