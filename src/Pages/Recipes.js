@@ -170,7 +170,7 @@ const Recipes = (props) => {
 
   return (
     <div className="w-full flex flex-col items-center ">
-      <h1 className="text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl">
+      <h1 className="text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl p-1">
         Find the perfect Recipe!
       </h1>
       {!user && (
@@ -191,7 +191,7 @@ const Recipes = (props) => {
 
           <form
             onSubmit={handleSearch}
-            className="m-6 flex flex-wrap gap-x-4 justify-center mx-auto max-w-2/3"
+            className="m-6 flex flex-wrap gap-x-4 justify-center mx-auto max-w-2/3 p-5"
           >
             <input
               type="text"
