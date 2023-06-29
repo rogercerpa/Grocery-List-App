@@ -6,8 +6,7 @@ import { getDatabase, ref, set, push, get, child } from "firebase/database";
 import RecipeDetails from "../components/RecipeDetails";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { getFirestore, doc, setDoc, arrayUnion } from "firebase/firestore";
-import { StarIcon as StarIconOutline } from "@heroicons/react/24/outline";
-import { StarIcon as StarIconSolid } from "@heroicons/react/20/solid";
+import RecipeCard from "../components/RecipeCard";
 
 const Recipes = (props) => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -213,32 +212,13 @@ const Recipes = (props) => {
           <div className="flex flex-col gap-10 w-full p-10 ">
             <div className="mt-6 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-4 xl:gap-x-8">
               {recipes.map((recipe, index) => (
-                <div key={index} className="group relative">
-                  <div className="aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-md bg-gray-200 lg:aspect-none group-hover:opacity-75 lg:h-80">
-                    <img
-                      src={recipe.image}
-                      alt={recipe.title}
-                      className="h-full w-full object-cover object-center lg:h-full lg:w-full"
-                      onClick={() => openModal(recipe)}
-                    />
-                  </div>
-                  <div className="mt-4 flex justify-between">
-                    <h2 className="text-sm font-medium text-gray-900">
-                      {recipe.title}
-                    </h2>
-                    <h3 className="text-sm  text-gray-700">
-                      Cooking Time: {recipe.cookingMinutes} minutes
-                    </h3>
-
-                    <button onClick={() => saveRecipeAsFavorite(recipe)}>
-                      {favoritedRecipeIds.includes(recipe.id.toString()) ? (
-                        <StarIconSolid className="h-6 w-6 text-yellow-500" />
-                      ) : (
-                        <StarIconOutline className="h-6 w-6 text-yellow-500" />
-                      )}
-                    </button>
-                  </div>
-                </div>
+                <RecipeCard
+                  key={index}
+                  recipe={recipe}
+                  openModal={openModal}
+                  saveRecipeAsFavorite={saveRecipeAsFavorite}
+                  favoritedRecipeIds={favoritedRecipeIds}
+                />
               ))}
             </div>
           </div>
