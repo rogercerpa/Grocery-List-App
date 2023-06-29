@@ -4,8 +4,8 @@ import { firebaseConfig } from "../firebaseConfig";
 import { initializeApp } from "firebase/app";
 import { getDatabase, ref, set, push, get, child } from "firebase/database";
 import RecipeDetails from "../components/RecipeDetails";
-import { getAuth, onAuthStateChanged } from "firebase/auth";
-import { getFirestore, doc, setDoc, arrayUnion } from "firebase/firestore";
+import { getAuth } from "firebase/auth";
+import { getFirestore, doc, setDoc } from "firebase/firestore";
 import RecipeCard from "../components/RecipeCard";
 import RecipeSearchForm from "../components/RecipeSearchForm";
 
