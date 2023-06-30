@@ -1,8 +1,8 @@
-import Logo from "../assets/logo.png";
+import Logo from "../../assets/logo.png";
 import { useState } from "react";
 import { Disclosure } from "@headlessui/react";
-import SignUp from "./SignUp";
-import SignIn from "./SignIn";
+import SignUp from "../SignUp";
+import SignIn from "../SignIn";
 import {
   FaUserPlus,
   FaSignInAlt,
@@ -15,7 +15,7 @@ import Modal from "react-modal";
 import { signOut } from "firebase/auth";
 import { useLocation, useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
-import Tooltip from "../components/Tooltip";
+import Tooltip from "../Tooltip";
 
 Modal.setAppElement("#root");
 

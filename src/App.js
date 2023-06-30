@@ -1,5 +1,5 @@
 import React from "react";
-import Header from "./components/Header";
+import Header from "./components/HeaderFooter/Header";
 import Profile from "./Pages/Profile";
 import Recipes from "./Pages/Recipes";
 import Home from "./Pages/Home";
@@ -8,6 +8,7 @@ import { firebaseConfig } from "./firebaseConfig";
 import { initializeApp } from "firebase/app";
 import { getDatabase, ref, onValue, off } from "firebase/database";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import Footer from "./components/HeaderFooter/Footer";
 
 function App() {
   //dark mode function
@@ -90,6 +91,7 @@ function App() {
           <Route path="/" element={<Home user={user} />} />
           <Route path="/recipes" element={<Recipes user={user} />} />
         </Routes>
+        <Footer />
       </div>
     </Router>
   );
