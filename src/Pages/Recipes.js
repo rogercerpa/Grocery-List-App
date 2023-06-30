@@ -8,6 +8,8 @@ import { getAuth } from "firebase/auth";
 import { getFirestore, doc, setDoc } from "firebase/firestore";
 import RecipeCard from "../components/RecipeCard";
 import RecipeSearchForm from "../components/RecipeSearchForm";
+import { collection, getDocs } from "firebase/firestore";
+import FavoritedList from "../components/Recipes/FavoritedList";
 
 const Recipes = (props) => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -21,6 +23,7 @@ const Recipes = (props) => {
   const auth = getAuth();
   const firestore = getFirestore();
   const [favoritedRecipeIds, setFavoritedRecipeIds] = useState([]);
+  const [favoriteRecipes, setFavoriteRecipes] = useState([]);
 
   //save recipe to users favorites list
   const saveRecipeAsFavorite = async (recipe) => {
@@ -45,6 +48,19 @@ const Recipes = (props) => {
     } catch (error) {
       console.error("Error saving recipe as favorite: ", error);
     }
+  };
+
+  // get favorite recipes from database
+  const fetchFavoriteRecipes = async () => {
+    const favoritesRef = collection(
+      firestore,
+      "users",
+      auth.currentUser.uid,
+      "favoriteRecipes"
+    );
+    const querySnapshot = await getDocs(favoritesRef);
+    const favorites = querySnapshot.docs.map((doc) => doc.data());
+    setFavoriteRecipes(favorites);
   };
 
   // Load search results from local storage
@@ -193,6 +209,7 @@ const Recipes = (props) => {
             handleSearch={handleSearch}
             searchTerm={searchTerm}
             handleSearchTermChange={handleSearchTermChange}
+            fetchFavoriteRecipes={fetchFavoriteRecipes}
           />
 
           {/* recipe results  */}
@@ -208,6 +225,7 @@ const Recipes = (props) => {
                   favoritedRecipeIds={favoritedRecipeIds}
                 />
               ))}
+              <FavoritedList favoriteRecipes={favoriteRecipes} />
             </div>
           </div>
 
