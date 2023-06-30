@@ -219,7 +219,7 @@ const Recipes = (props) => {
             handleSearch={handleSearch}
             searchTerm={searchTerm}
             handleSearchTermChange={handleSearchTermChange}
-            fetchFavoriteRecipes={displayFavorites}
+            displayFavorites={displayFavorites}
           />
 
           {/* recipe results  */}
