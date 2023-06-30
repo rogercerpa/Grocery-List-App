@@ -10,6 +10,7 @@ import RecipeCard from "../components/RecipeCard";
 import RecipeSearchForm from "../components/RecipeSearchForm";
 import { collection, getDocs } from "firebase/firestore";
 import FavoritedList from "../components/Recipes/FavoritedList";
+import CircularProgress from "@mui/material/CircularProgress";
 
 const Recipes = (props) => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -24,6 +25,8 @@ const Recipes = (props) => {
   const firestore = getFirestore();
   const [favoritedRecipeIds, setFavoritedRecipeIds] = useState([]);
   const [favoriteRecipes, setFavoriteRecipes] = useState([]);
+  const [loadingFavorites, setLoadingFavorites] = useState(false);
+  const [showFavorites, setShowFavorites] = useState(false);
 
   //save recipe to users favorites list
   const saveRecipeAsFavorite = async (recipe) => {
@@ -51,16 +54,23 @@ const Recipes = (props) => {
   };
 
   // get favorite recipes from database
-  const fetchFavoriteRecipes = async () => {
-    const favoritesRef = collection(
-      firestore,
-      "users",
-      auth.currentUser.uid,
-      "favoriteRecipes"
-    );
-    const querySnapshot = await getDocs(favoritesRef);
-    const favorites = querySnapshot.docs.map((doc) => doc.data());
-    setFavoriteRecipes(favorites);
+  const displayFavorites = async () => {
+    setLoadingFavorites(true); // Start loading process
+    setShowFavorites(true);
+    try {
+      const favoritesRef = collection(
+        firestore,
+        "users",
+        auth.currentUser.uid,
+        "favoriteRecipes"
+      );
+      const querySnapshot = await getDocs(favoritesRef);
+      const favorites = querySnapshot.docs.map((doc) => doc.data());
+      setFavoriteRecipes(favorites);
+    } catch (error) {
+      console.error("Error fetching favorite recipes: ", error);
+    }
+    setLoadingFavorites(false); // Stop loading process after fetch is complete
   };
 
   // Load search results from local storage
@@ -209,7 +219,7 @@ const Recipes = (props) => {
             handleSearch={handleSearch}
             searchTerm={searchTerm}
             handleSearchTermChange={handleSearchTermChange}
-            fetchFavoriteRecipes={fetchFavoriteRecipes}
+            fetchFavoriteRecipes={displayFavorites}
           />
 
           {/* recipe results  */}
@@ -225,7 +235,13 @@ const Recipes = (props) => {
                   favoritedRecipeIds={favoritedRecipeIds}
                 />
               ))}
-              <FavoritedList favoriteRecipes={favoriteRecipes} />
+              {loadingFavorites ? (
+                <div>
+                  <CircularProgress />
+                </div>
+              ) : showFavorites ? (
+                <FavoritedList favoriteRecipes={favoriteRecipes} />
+              ) : null}
             </div>
           </div>
 

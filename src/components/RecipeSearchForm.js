@@ -5,7 +5,7 @@ const RecipeSearchForm = ({
   handleSearch,
   searchTerm,
   handleSearchTermChange,
-  fetchFavoriteRecipes,
+  displayFavorites,
 }) => {
   return (
     <form
@@ -28,7 +28,7 @@ const RecipeSearchForm = ({
         >
           Search
         </button>
-        <button type="button" onClick={fetchFavoriteRecipes}>
+        <button type="button" onClick={displayFavorites}>
           <StarIcon className="h-8 w-8 text-yellow-500" />{" "}
           {/* Adjust the size and color here */}
         </button>
