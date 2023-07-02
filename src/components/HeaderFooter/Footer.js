@@ -3,34 +3,21 @@ import { MagnifyingGlassIcon as SearchIcon } from "@heroicons/react/20/solid";
 import { BellIcon } from "@heroicons/react/20/solid";
 import { UserIcon } from "@heroicons/react/20/solid";
 import { Link } from "react-router-dom";
+import OutdoorGrillIcon from "@mui/icons-material/OutdoorGrill";
 
 function Footer() {
-  const handleClick = (event) => {
-    // Handle different icon click events here.
-    console.log(`${event.target.name} icon clicked!`);
-  };
-
   return (
     <footer className="fixed bottom-0 left-0 w-full bg-gray-800 p-2 flex items-center justify-around text-white">
-      <Link>
-        <HomeIcon
-          className="h-6 w-6 cursor-pointer"
-          name="home"
-          onClick={handleClick}
-        />
+      <Link to="/">
+        <HomeIcon className="h-6 w-6 cursor-pointer" name="home" />
+      </Link>
+      <Link to="recipes">
+        <SearchIcon className="h-6 w-6 cursor-pointer" name="search" />
       </Link>
       <Link>
-        <SearchIcon
+        <OutdoorGrillIcon
           className="h-6 w-6 cursor-pointer"
-          name="search"
-          onClick={handleClick}
-        />
-      </Link>
-      <Link>
-        <BellIcon
-          className="h-6 w-6 cursor-pointer"
-          name="notifications"
-          onClick={handleClick}
+          name="favoritedRecipes"
         />
       </Link>
       <Link to="/profile">

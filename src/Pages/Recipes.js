@@ -99,20 +99,6 @@ const Recipes = (props) => {
     fetchIngredients();
   }, [fetchIngredients]);
 
-  // useEffect(() => {
-  //   // Fetch current ingredients from database on component mount
-  //   const fetchIngredients = async () => {
-  //     const response = await db.ref("/products").once("value");
-  //     const data = response.val();
-  //     const ingredients = data
-  //       ? Object.values(data).map((item) => item.itemName)
-  //       : [];
-  //     setIngredientsInDB(ingredients);
-  //   };
-
-  //   fetchIngredients();
-  // }, [db, user]);
-
   const addItemToDatabase = async (item) => {
     // Check if the ingredient is already in the database
     if (ingredientsInDB.includes(item)) {

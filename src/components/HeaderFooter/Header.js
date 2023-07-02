@@ -6,7 +6,6 @@ import SignIn from "../SignIn";
 import {
   FaUserPlus,
   FaSignInAlt,
-  FaUser,
   FaSignOutAlt,
   FaTimes,
   FaBars,
@@ -147,13 +146,6 @@ export default function CombinedNavbar(props) {
             )}
             {user && (
               <>
-                <Link to="/profile">
-                  <Tooltip content="Profile">
-                    <button className="p-2">
-                      <FaUser />
-                    </button>
-                  </Tooltip>
-                </Link>
                 <Tooltip content="Sign-Out">
                   <button className="p-2" onClick={handleSignOut}>
                     <FaSignOutAlt />
