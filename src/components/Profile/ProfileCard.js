@@ -1,8 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import UserInfo from "./UserInfo";
 import FollowInfo from "./FollowInfo";
 import ActionButton from "./ActionButton";
 import EditProfileForm from "./EditProfileForm";
+import { PencilIcon } from "@heroicons/react/24/outline";
+import { StarIcon } from "@heroicons/react/20/solid";
 
 const ProfileCard = ({
   user,
@@ -13,17 +15,55 @@ const ProfileCard = ({
   handlePhotoChange,
   username,
   UserDefaultImage,
+  displayFavorites,
 }) => {
-  return (
-    <div className="card w-96 mx-auto bg-white shadow-xl hover:shadow rounded-lg">
-      <img
-        className="w-32 mx-auto rounded-full -mt-20 border-8 border-white"
-        src={UserDefaultImage}
-        alt="ProfileImage"
-      />
+  const [bannerImage, setBannerImage] = useState("");
 
+  const handleBannerChange = (event) => {
+    const file = event.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setBannerImage(reader.result);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
+  return (
+    <div className=" w-full max-w-3xl mx-auto bg-white shadow-xl hover:shadow rounded-lg">
+      <div
+        className="relative w-full h-20"
+        style={{
+          backgroundImage: `url(${bannerImage})`,
+          backgroundSize: "cover",
+        }}
+      >
+        <input
+          type="file"
+          accept="image/*"
+          className="hidden"
+          id="bannerUpload"
+          onChange={handleBannerChange}
+        />
+        <PencilIcon
+          className="h-6 w-6 text-gray-500 absolute bottom-2 right-2 cursor-pointer"
+          onClick={() => document.getElementById("bannerUpload").click()}
+        />
+      </div>
+      <div className="">
+        <img
+          className="w-32 mx-auto rounded-full -mt-20 border-8 border-white z-10"
+          src={UserDefaultImage}
+          alt="ProfileImage"
+        />
+      </div>
       <UserInfo user={user} username={username} />
       <FollowInfo followers={user.followers} following={user.following} />
+
+      {/* <button type="button" onClick={displayFavorites}>
+        <StarIcon className="h-8 w-8 text-yellow-500" />
+      </button> */}
 
       <ActionButton
         label="Sign Out"

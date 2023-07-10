@@ -1,11 +1,9 @@
 import React from "react";
-import { StarIcon } from "@heroicons/react/20/solid";
 
 const RecipeSearchForm = ({
   handleSearch,
   searchTerm,
   handleSearchTermChange,
-  displayFavorites,
 }) => {
   return (
     <form
@@ -25,9 +23,6 @@ const RecipeSearchForm = ({
           className="flex-grow sm:flex-grow-0 items-center justify-center rounded-md border border-transparent bg-indigo-600 px-8 py-3 text-base font-medium text-white gap-5 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
         >
           Search
-        </button>
-        <button type="button" onClick={displayFavorites}>
-          <StarIcon className="h-8 w-8 text-yellow-500" />
         </button>
       </div>
     </form>

@@ -21,14 +21,14 @@ function Footer({ displayFavorites }) {
           content="SearchRecipes"
         />
       </Link>
-      <Link>
+      {/* <Link>
         <OutdoorGrillIcon
           className="h-8 w-8 cursor-pointer"
           name="favoritedRecipes"
           content="FavoritedRecipes"
           onClick={displayFavorites}
         />
-      </Link>
+      </Link> */}
       <Link to="/profile">
         <UserIcon
           className="h-8 w-8 cursor-pointer"
