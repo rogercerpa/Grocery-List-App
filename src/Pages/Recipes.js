@@ -8,9 +8,6 @@ import { getAuth } from "firebase/auth";
 import { getFirestore, doc, setDoc } from "firebase/firestore";
 import RecipeCard from "../components/Recipes/RecipeCard";
 import RecipeSearchForm from "../components/Recipes/RecipeSearchForm";
-import { collection, getDocs } from "firebase/firestore";
-import FavoritedList from "../components/Recipes/FavoritedList";
-import CircularProgress from "@mui/material/CircularProgress";
 
 const Recipes = (props) => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -24,9 +21,6 @@ const Recipes = (props) => {
   const auth = getAuth();
   const firestore = getFirestore();
   const [favoritedRecipeIds, setFavoritedRecipeIds] = useState([]);
-  const [favoriteRecipes, setFavoriteRecipes] = useState([]);
-  const [loadingFavorites, setLoadingFavorites] = useState(false);
-  const [showFavorites, setShowFavorites] = useState(false);
 
   //save recipe to users favorites list
   const saveRecipeAsFavorite = async (recipe) => {
@@ -53,25 +47,6 @@ const Recipes = (props) => {
     }
   };
 
-  // get favorite recipes from database
-  const displayFavorites = async () => {
-    setLoadingFavorites(true); // Start loading process
-    setShowFavorites(true);
-    try {
-      const favoritesRef = collection(
-        firestore,
-        "users",
-        auth.currentUser.uid,
-        "favoriteRecipes"
-      );
-      const querySnapshot = await getDocs(favoritesRef);
-      const favorites = querySnapshot.docs.map((doc) => doc.data());
-      setFavoriteRecipes(favorites);
-    } catch (error) {
-      console.error("Error fetching favorite recipes: ", error);
-    }
-    setLoadingFavorites(false); // Stop loading process after fetch is complete
-  };
 
   // Load search results from local storage
   useEffect(() => {
@@ -145,7 +120,7 @@ const Recipes = (props) => {
   const handleSearchTermChange = (event) => {
     setSearchTerm(event.target.value);
   };
-
+// search the API for recipes
   const handleSearch = async (e) => {
     e.preventDefault();
     setError(null);
@@ -171,7 +146,7 @@ const Recipes = (props) => {
       setError(err.toString());
     }
   };
-
+// open modal to show recipe details
   const [selectedRecipe, setSelectedRecipe] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -205,7 +180,6 @@ const Recipes = (props) => {
             handleSearch={handleSearch}
             searchTerm={searchTerm}
             handleSearchTermChange={handleSearchTermChange}
-            displayFavorites={displayFavorites}
           />
 
           {/* recipe results  */}
@@ -221,13 +195,6 @@ const Recipes = (props) => {
                   favoritedRecipeIds={favoritedRecipeIds}
                 />
               ))}
-              {loadingFavorites ? (
-                <div>
-                  <CircularProgress />
-                </div>
-              ) : showFavorites ? (
-                <FavoritedList favoriteRecipes={favoriteRecipes} />
-              ) : null}
             </div>
           </div>
 

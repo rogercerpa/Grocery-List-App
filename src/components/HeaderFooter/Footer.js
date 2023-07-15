@@ -4,7 +4,7 @@ import { UserIcon } from "@heroicons/react/20/solid";
 import { Link } from "react-router-dom";
 import OutdoorGrillIcon from "@mui/icons-material/OutdoorGrill";
 
-function Footer({ displayFavorites }) {
+function Footer() {
   return (
     <footer className="fixed bottom-0 left-0 w-full bg-gray-800 p-6 flex items-center justify-around text-white ">
       <Link to="/">
@@ -21,14 +21,13 @@ function Footer({ displayFavorites }) {
           content="SearchRecipes"
         />
       </Link>
-      {/* <Link>
+      <Link to="favoritedrecipes">
         <OutdoorGrillIcon
           className="h-8 w-8 cursor-pointer"
           name="favoritedRecipes"
           content="FavoritedRecipes"
-          onClick={displayFavorites}
         />
-      </Link> */}
+      </Link>
       <Link to="/profile">
         <UserIcon
           className="h-8 w-8 cursor-pointer"

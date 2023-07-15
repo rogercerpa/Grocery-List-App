@@ -3,6 +3,7 @@ import Header from "./components/HeaderFooter/Header";
 import Profile from "./Pages/Profile";
 import Recipes from "./Pages/Recipes";
 import Home from "./Pages/Home";
+import FavoritedRecipes from "./Pages/FavoritedRecipes";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { firebaseConfig } from "./firebaseConfig";
 import { initializeApp } from "firebase/app";
@@ -90,6 +91,7 @@ function App() {
           <Route path="/profile" element={<Profile user={user} />} />
           <Route path="/" element={<Home user={user} />} />
           <Route path="/recipes" element={<Recipes user={user} />} />
+          <Route path="/favoritedrecipes" element={<FavoritedRecipes user={user} />} />
         </Routes>
         <Footer />
       </div>
