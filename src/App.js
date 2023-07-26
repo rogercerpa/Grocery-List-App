@@ -76,7 +76,7 @@ function App() {
       <div
         className={
           darkMode
-            ? "dbg-[#21222A] text-[#D5D4D8] text-center flex flex-col items-center h-[1000px] w-auto m-auto"
+            ? "dbg-[#21222A] text-[#D5D4D8] text-center flex flex-col items-center h-auto w-auto m-auto"
             : "text-[#21222A] bg-[#ffffff] text-center flex flex-col items-center h-auto w-auto m-auto"
         }
       >
@@ -87,14 +87,17 @@ function App() {
           setUser={setUser}
           auth={auth}
         />
+        <main className="container box-border p-4">
         <Routes>
           <Route path="/profile" element={<Profile user={user} />} />
           <Route path="/" element={<Home user={user} />} />
           <Route path="/recipes" element={<Recipes user={user} />} />
           <Route path="/favoritedrecipes" element={<FavoritedRecipes user={user} />} />
         </Routes>
-        <Footer />
+        </main>
+        
       </div>
+      <Footer />
     </Router>
   );
 }
