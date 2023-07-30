@@ -1,6 +1,24 @@
 import React from "react";
+import { Link } from "react-router-dom";
+// import { getAuth } from "firebase/auth";
+// import { getFirestore, doc, setDoc, deleteDoc } from "firebase/firestore";
+// const auth = getAuth();
+// const firestore = getFirestore();
 
 const FavoriteList = ({ favoriteRecipes }) => {
+
+  // const deleteFavorite = async (recipeId) => {
+  //   try {
+  //     const recipeRef = doc(firestore, "users", auth.currentUser.uid, "favoriteRecipes", recipeId);
+  //     await deleteDoc(recipeRef);
+  //     // After deletion, fetch the favorites again to update the list
+  //     displayFavorites();
+  //   } catch (error) {
+  //     console.error("Error deleting favorite recipe: ", error);
+  //   }
+  // };
+  
+
   return (
     <div className="">
       <div className="mx-auto px-4 sm:px-6 lg:px-8">
@@ -11,12 +29,11 @@ const FavoriteList = ({ favoriteRecipes }) => {
             {favoriteRecipes.map((recipe) => (
               <div key={recipe.id} className=" ">
                 <h3 className="p-1 text-sm text-gray-500 content-center">
-                  <a href={`/recipe/${recipe.id}`}>
+                  <Link to={`/recipe/${recipe.id}`}>
                     {" "}
-                    {/* Adjust this to match your route for individual recipes */}
                     <span className="" />
                     {recipe.title}
-                  </a>
+                  </Link>
                 </h3>
                 <div className="">
                   <img
@@ -29,6 +46,12 @@ const FavoriteList = ({ favoriteRecipes }) => {
                 <p className="text-base font-semibold text-gray-900">
                   {recipe.description}
                 </p>{" "}
+                <button 
+        // onClick={() => deleteFavorite(recipe.id)}
+        className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
+      >
+        Delete
+      </button>
              
               </div>
             ))}
