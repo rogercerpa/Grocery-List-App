@@ -7,8 +7,6 @@ import {
   FaUserPlus,
   FaSignInAlt,
   FaSignOutAlt,
-  FaTimes,
-  FaBars,
 } from "react-icons/fa";
 import Modal from "react-modal";
 import { signOut } from "firebase/auth";
@@ -73,20 +71,9 @@ export default function CombinedNavbar(props) {
                 />
               </Link>
             </div>
-            {/* Mobile menu button */}
-            <div className="flex items-center sm:hidden">
-              <Disclosure.Button className="inline-flex items-center justify-center rounded-md p-2 text-gray-400 hover:bg-gray-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white">
-                <span className="sr-only">Open main menu</span>
-                {open ? (
-                  <FaTimes className="block h-6 w-6" aria-hidden="true" />
-                ) : (
-                  <FaBars className="block h-6 w-6" aria-hidden="true" />
-                )}
-              </Disclosure.Button>
-            </div>
           </div>
 
-          <div className="hidden md:flex md:flex-grow items-center justify-center md:ml-6">
+          {/* <div className="hidden md:flex md:flex-grow items-center justify-center md:ml-6">
             {updatedNavigation.map((item) => (
               <Link
                 key={item.name}
@@ -102,7 +89,8 @@ export default function CombinedNavbar(props) {
                 {item.name}
               </Link>
             ))}
-          </div>
+          </div> */}
+          
           <div className="flex items-center ml-auto">
             {!user && (
               <>
@@ -154,7 +142,7 @@ export default function CombinedNavbar(props) {
               </>
             )}
           </div>
-          <Disclosure.Panel className="sm:hidden">
+          {/* <Disclosure.Panel className="sm:hidden">
             <div className="space-y-1 px-2 pb-3 pt-2">
               {updatedNavigation.map((item) => (
                 <Disclosure.Button>
@@ -174,7 +162,7 @@ export default function CombinedNavbar(props) {
                 </Disclosure.Button>
               ))}
             </div>
-          </Disclosure.Panel>
+          </Disclosure.Panel> */}
         </>
       )}
     </Disclosure>
