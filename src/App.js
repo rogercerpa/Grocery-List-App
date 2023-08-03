@@ -73,7 +73,7 @@ function App() {
 
   return (
     <Router>
-      <div
+      <section
         className={
           darkMode
             ? "dbg-[#21222A] text-[#D5D4D8] text-center flex flex-col items-center h-auto w-auto m-auto"
@@ -87,7 +87,7 @@ function App() {
           setUser={setUser}
           auth={auth}
         />
-        <main className="container box-border p-4">
+        <main className="container box-border p-4 sm:m-20 md:m-10 lg:m-5">
         <Routes>
           <Route path="/profile" element={<Profile user={user} />} />
           <Route path="/" element={<Home user={user} />} />
@@ -96,7 +96,7 @@ function App() {
         </Routes>
         </main>
         
-      </div>
+      </section>
       <Footer />
     </Router>
   );
