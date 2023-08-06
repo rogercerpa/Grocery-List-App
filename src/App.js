@@ -87,7 +87,7 @@ function App() {
           setUser={setUser}
           auth={auth}
         />
-        <main className="container box-border p-4 sm:m-20 md:m-10 lg:m-5">
+        <main className="flex-grow box-border p-4 pb-20 sm:m-20 md:m-10 lg:m-5">
         <Routes>
           <Route path="/profile" element={<Profile user={user} />} />
           <Route path="/" element={<Home user={user} />} />
@@ -95,9 +95,9 @@ function App() {
           <Route path="/favoritedrecipes" element={<FavoritedRecipes user={user} />} />
         </Routes>
         </main>
-        
+       <Footer /> 
       </section>
-      <Footer />
+      
     </Router>
   );
 }
