@@ -93,7 +93,7 @@ const Profile = ({ user }) => {
   };
 
   return (
-    <main className="bg-gray-200 font-sans h-screen w-full flex flex-row justify-center items-center ">
+    <main className="bg-gray-200 font-sans h-screen w-full flex flex-row justify-center items-center flex-grow">
       {user && (
         <ProfileCard
           user={user}
