@@ -1,8 +1,10 @@
 import React from 'react'
+import BudgetTable  from "../components/BudgetTable"
+
 
 function Calculator() {
   return (
-    <div>Calculator</div>
+<div><BudgetTable/></div>
   )
 }
 
