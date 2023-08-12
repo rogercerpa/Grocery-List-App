@@ -10,6 +10,7 @@ import { initializeApp } from "firebase/app";
 import { getDatabase, ref, onValue, off } from "firebase/database";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Footer from "./components/HeaderFooter/Footer";
+import Calculator from "./Pages/Calculator"
 
 function App() {
   //dark mode function
@@ -91,6 +92,7 @@ function App() {
         <Routes>
           <Route path="/profile" element={<Profile user={user} />} />
           <Route path="/" element={<Home user={user} />} />
+          <Route path="/calculator" element={<Calculator user={user} />} />
           <Route path="/recipes" element={<Recipes user={user} />} />
           <Route path="/favoritedrecipes" element={<FavoritedRecipes user={user} />} />
         </Routes>
