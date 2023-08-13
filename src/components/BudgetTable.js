@@ -25,7 +25,8 @@ const BudgetTable = () => {
     localStorage.removeItem('budgetItems');
   };
 
-  const total = items.reduce((acc, item) => acc + (Number(item.price) || 0), 0);
+  const totalValue = items.reduce((acc, item) => acc + (Number(item.price) || 0), 0);
+  const total = Number(totalValue.toFixed(2));
 
   return (
     <div className="w-full max-w-md mx-auto mt-5">
@@ -47,6 +48,7 @@ const BudgetTable = () => {
                 />
               </td>
               <td className="py-2 px-4 border-b">
+              <span className="absolute left-2 top-1/2 transform -translate-y-1/2">$</span>
                 <input
                   type="number"
                   className="border rounded w-full py-2 px-3"
@@ -75,14 +77,16 @@ const BudgetTable = () => {
           </tr>
           <tr>
             <td className="py-2 px-4">Budget:</td>
-            <td className="py-2 px-4">
-              <input
+            <td className="py-2 px-4 relative">
+                <span className="absolute left-2 top-1/2 transform -translate-y-1/2">$</span>
+            <input
                 type="number"
-                className="border rounded w-full py-2 px-3"
+                className="border rounded w-full py-2 pl-6 pr-3"
                 value={budget}
                 onChange={(e) => setBudget(e.target.value)}
-              />
+                />
             </td>
+
           </tr>
         </tbody>
       </table>
