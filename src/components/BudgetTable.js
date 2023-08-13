@@ -2,7 +2,11 @@ import React, { useState, useEffect } from 'react';
 
 const BudgetTable = () => {
   const initialItems = [{ name: '', price: '' }];
-  const [items, setItems] = useState([{ name: '', price: '' }]);
+
+    // Check local storage first for items
+  const localStorageItems = JSON.parse(localStorage.getItem('budgetItems'));
+
+  const [items, setItems] = useState(localStorageItems || initialItems);
   const [budget, setBudget] = useState('');
 
   useEffect(() => {
@@ -47,15 +51,16 @@ const BudgetTable = () => {
                   onChange={(e) => handleItemChange(index, 'name', e.target.value)}
                 />
               </td>
-              <td className="py-2 px-4 border-b">
-              <span className="absolute left-2 top-1/2 transform -translate-y-1/2">$</span>
+              <td className="py-2 px-4 border-b relative">
+                <span className="absolute left-2 top-1/2 transform -translate-y-1/2">$</span>
                 <input
-                  type="number"
-                  className="border rounded w-full py-2 px-3"
-                  value={item.price}
-                  onChange={(e) => handleItemChange(index, 'price', e.target.value)}
+                    type="number"
+                    className="border rounded w-full py-2 px-3 pl-6" // added padding-left (pl-6) to accommodate the $ symbol
+                    value={item.price}
+                    onChange={(e) => handleItemChange(index, 'price', e.target.value)}
                 />
-              </td>
+                </td>
+
             </tr>
           ))}
           <tr>
