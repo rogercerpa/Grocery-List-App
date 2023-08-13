@@ -1,8 +1,14 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 const BudgetTable = () => {
+  const initialItems = [{ name: '', price: '' }];
   const [items, setItems] = useState([{ name: '', price: '' }]);
   const [budget, setBudget] = useState('');
+
+  useEffect(() => {
+    localStorage.setItem('budgetItems', JSON.stringify(items));
+  }, [items]);
+
 
   const handleItemChange = (index, field, value) => {
     const newItems = [...items];
@@ -12,6 +18,11 @@ const BudgetTable = () => {
 
   const addItem = () => {
     setItems([...items, { name: '', price: '' }]);
+  };
+
+  const resetTable = () => {
+    setItems(initialItems);
+    localStorage.removeItem('budgetItems');
   };
 
   const total = items.reduce((acc, item) => acc + (Number(item.price) || 0), 0);
@@ -50,6 +61,12 @@ const BudgetTable = () => {
               <button onClick={addItem} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
                 Add Item
               </button>
+              <button 
+                    onClick={resetTable} 
+                    className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
+                >
+                Reset Table
+            </button>
             </td>
           </tr>
           <tr>
