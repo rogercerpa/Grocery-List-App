@@ -8,6 +8,8 @@ const BudgetTable = () => {
 
   const [items, setItems] = useState(localStorageItems || initialItems);
   const [budget, setBudget] = useState('');
+  const [taxPercentage, setTaxPercentage] = useState(0);
+
 
   useEffect(() => {
     localStorage.setItem('budgetItems', JSON.stringify(items));
@@ -31,6 +33,14 @@ const BudgetTable = () => {
 
   const totalValue = items.reduce((acc, item) => acc + (Number(item.price) || 0), 0);
   const total = Number(totalValue.toFixed(2));
+  const taxAmount = (total * taxPercentage) / 100;
+  const totalWithTax = total + taxAmount;
+
+// calculating remaining budget
+  const remainingBudget = Number(budget) - totalWithTax;
+  const remainingBudgetColor = remainingBudget >= 0 ? 'text-green-500' : 'text-red-500';
+  
+  
 
   return (
     <div className="w-full max-w-md mx-auto mt-5">
@@ -77,22 +87,42 @@ const BudgetTable = () => {
             </td>
           </tr>
           <tr>
-            <td className="py-2 px-4">Total:</td>
-            <td className="py-2 px-4">${total}</td>
-          </tr>
-          <tr>
-            <td className="py-2 px-4">Budget:</td>
-            <td className="py-2 px-4 relative">
-                <span className="absolute left-2 top-1/2 transform -translate-y-1/2">$</span>
-            <input
-                type="number"
-                className="border rounded w-full py-2 pl-6 pr-3"
-                value={budget}
-                onChange={(e) => setBudget(e.target.value)}
-                />
-            </td>
+               <td className="py-2 px-4">Tax Percentage:</td>
+               <td className="py-2 px-4 relative">
+               <span className="absolute left-2 top-1/2 transform -translate-y-1/2">%</span>
+               <input 
+                  type="number" 
+                  className="border rounded w-full py-2 px-3 pl-6" 
+                  value={taxPercentage} 
+                  onChange={(e) => setTaxPercentage(Number(e.target.value))} 
+              />
+          </td>
+        </tr>
 
-          </tr>
+        <tr>
+             <td className="py-2 px-4">Tax Amount:</td>
+             <td className="py-2 px-4">${taxAmount.toFixed(2)}</td>
+        </tr>
+       <tr>
+            <td className="py-2 px-4">Total + Tax:</td>
+            <td className="py-2 px-4">${totalWithTax.toFixed(2)}</td>
+       </tr>
+
+       <tr>
+           <td className="py-2 px-4">Budget:</td>
+           <td className="py-2 px-4 relative">
+          <span className="absolute left-2 top-1/2 transform -translate-y-1/2">$</span>
+         <input
+            type="number"
+            className="border rounded w-full py-2 pl-6 pr-3"
+            value={budget}
+            onChange={(e) => setBudget(e.target.value)}
+          />
+          <div className={`mt-2 ${remainingBudgetColor}`}>
+            Remaining: ${remainingBudget.toFixed(2)}
+          </div>
+         </td>
+       </tr>
         </tbody>
       </table>
     </div>
