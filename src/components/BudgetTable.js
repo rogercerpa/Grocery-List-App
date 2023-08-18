@@ -99,12 +99,13 @@ const BudgetTable = () => {
             <td className="py-2 px-4">Tax Percentage:</td>
             <td className=" relative">
                 <span className="absolute left-1 top-1/2 transform -translate-y-1/2">%</span>
-                <input 
-                    type="number" 
-                    className="border rounded w-full py-2 px-3 pl-7"  // Increase from pl-6 to pl-7 or even pl-8 if needed
-                    value={taxPercentage} 
-                    onChange={(e) => setTaxPercentage(Number(e.target.value))} 
-                />
+                        <input 
+                          type="number" 
+                          className="border rounded w-full py-2 px-3 pl-7"  
+                          value={taxPercentage} 
+                          onChange={(e) => setTaxPercentage(e.target.value ? Number(e.target.value) : "")}
+
+                        />
             </td>
           </tr>
 
@@ -124,7 +125,7 @@ const BudgetTable = () => {
             <span className="absolute left-1 top-1/2 transform -translate-y-1/2">$</span>
             <input
                 type="number"
-                className="border rounded w-full py-2 pl-7 pr-3"  // Increase from pl-6 to pl-7
+                className="border rounded w-full py-2 pl-7 pr-3"  
                 value={budget}
                 onChange={(e) => setBudget(e.target.value)}
             />
