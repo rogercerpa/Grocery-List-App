@@ -49,8 +49,8 @@ const BudgetTable = () => {
   
 
   return (
-    <div className="w-full max-w-md mx-auto mt-5">
-      <table className="min-w-full bg-white border border-gray-200">
+    <div className="w-full max-w-lg mx-auto">
+      <table className="min-w-full bg-white border border-gray-200 ">
         <thead>
           <tr>
             <th className="py-2 px-4 border-b">Item</th>
@@ -59,23 +59,23 @@ const BudgetTable = () => {
         </thead>
         <tbody>
           {items.map((item, index) => (
-            <tr key={index}>
-              <td className="py-2 px-4 border-b">
+            <tr key={index} >
+              <td className="flex  py-2 px-4 border-b items-center">
                 <input
-                  className="border rounded w-full py-2 px-3"
+                  className="grow border rounded w-full py-2 px-3"
                   value={item.name}
                   onChange={(e) => handleItemChange(index, 'name', e.target.value)}
                 />
-
-              </td>
-              {/* <td colSpan="2" className="py-2 px-4">
+               <span colSpan="2" className='' >
                  <BarcodeScanner onProductFound={handleProductFound} />
-             </td> */}
-              <td className="py-2 px-4 border-b relative">
+                </span>
+              </td>
+
+              <td className=" border-b relative m-2">
                 <span className="absolute left-2 top-1/2 transform -translate-y-1/2">$</span>
                 <input
                     type="number"
-                    className="border rounded w-full py-2 px-3 pl-6" // added padding-left (pl-6) to accommodate the $ symbol
+                    className="shrink border rounded w-full py-2 px-3 pl-6" 
                     value={item.price}
                     onChange={(e) => handleItemChange(index, 'price', e.target.value)}
                 />
@@ -83,31 +83,31 @@ const BudgetTable = () => {
 
             </tr>
           ))}
-          <tr>
-            <td colSpan="2" className="py-2 px-4">
-              <button onClick={addItem} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-                Add Item
-              </button>
-              <button 
-                    onClick={resetTable} 
-                    className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
-                >
-                Reset Table
-            </button>
+          
+              <tr>
+                  <td colSpan="2" className="py-2 px-4">
+                      <div className="flex justify-center gap-2">
+                          <button onClick={addItem} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                              Add Item
+                          </button>
+
+                      </div>
+                  </td>
+              </tr>
+
+              <tr>
+            <td className="py-2 px-4">Tax Percentage:</td>
+            <td className=" relative">
+                <span className="absolute left-1 top-1/2 transform -translate-y-1/2">%</span>
+                <input 
+                    type="number" 
+                    className="border rounded w-full py-2 px-3 pl-7"  // Increase from pl-6 to pl-7 or even pl-8 if needed
+                    value={taxPercentage} 
+                    onChange={(e) => setTaxPercentage(Number(e.target.value))} 
+                />
             </td>
           </tr>
-          <tr>
-               <td className="py-2 px-4">Tax Percentage:</td>
-               <td className="py-2 px-4 relative">
-               <span className="absolute left-2 top-1/2 transform -translate-y-1/2">%</span>
-               <input 
-                  type="number" 
-                  className="border rounded w-full py-2 px-3 pl-6" 
-                  value={taxPercentage} 
-                  onChange={(e) => setTaxPercentage(Number(e.target.value))} 
-              />
-          </td>
-        </tr>
+
 
         <tr>
              <td className="py-2 px-4">Tax Amount:</td>
@@ -119,20 +119,34 @@ const BudgetTable = () => {
        </tr>
 
        <tr>
-           <td className="py-2 px-4">Budget:</td>
-           <td className="py-2 px-4 relative">
-          <span className="absolute left-2 top-1/2 transform -translate-y-1/2">$</span>
-         <input
-            type="number"
-            className="border rounded w-full py-2 pl-6 pr-3"
-            value={budget}
-            onChange={(e) => setBudget(e.target.value)}
-          />
-          <div className={`mt-2 ${remainingBudgetColor}`}>
+        <td className="py-2 px-4">Budget:</td>
+        <td className=" relative">
+            <span className="absolute left-1 top-1/2 transform -translate-y-1/2">$</span>
+            <input
+                type="number"
+                className="border rounded w-full py-2 pl-7 pr-3"  // Increase from pl-6 to pl-7
+                value={budget}
+                onChange={(e) => setBudget(e.target.value)}
+            />
+         
+        </td>
+      </tr>
+      <tr>
+    <td className="flex justify-between items-center py-2 px-4">
+        <span className={`mt-2 ${remainingBudgetColor}`}>
             Remaining: ${remainingBudget.toFixed(2)}
-          </div>
-         </td>
-       </tr>
+        </span>
+    </td>
+    <td className="py-2 px-4">
+        <button 
+            onClick={resetTable} 
+            className="bg-red-500 hover:bg-red-700 text-white font-bold  p-2 rounded"
+        >
+            Reset Table
+        </button>
+        </td>
+    </tr>
+
         </tbody>
       </table>
     </div>
