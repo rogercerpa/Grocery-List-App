@@ -8,7 +8,7 @@ function Calculator() {
       <h1 className="text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl">
         Calculate your Grocery cost
       </h1>
-      <h2 className="mt-6 text-lg leading-8 text-gray-600">
+      <h2 className="my-6 text-lg leading-8 text-gray-600">
             Stay within budget! add all your items as you go. 
       </h2>
       <div><BudgetTable/></div>
