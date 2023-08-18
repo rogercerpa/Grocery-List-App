@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import BarcodeScanner from './BarcodeScanner'; // Assuming they're in the same directory
+
 
 const BudgetTable = () => {
   const initialItems = [{ name: '', price: '' }];
@@ -10,7 +12,11 @@ const BudgetTable = () => {
   const [budget, setBudget] = useState('');
   const [taxPercentage, setTaxPercentage] = useState(0);
 
-
+  const handleProductFound = (productName) => {
+    setItems([...items, { name: productName, price: '' }]);
+  };
+  
+  
   useEffect(() => {
     localStorage.setItem('budgetItems', JSON.stringify(items));
   }, [items]);
@@ -60,7 +66,11 @@ const BudgetTable = () => {
                   value={item.name}
                   onChange={(e) => handleItemChange(index, 'name', e.target.value)}
                 />
+
               </td>
+              {/* <td colSpan="2" className="py-2 px-4">
+                 <BarcodeScanner onProductFound={handleProductFound} />
+             </td> */}
               <td className="py-2 px-4 border-b relative">
                 <span className="absolute left-2 top-1/2 transform -translate-y-1/2">$</span>
                 <input
