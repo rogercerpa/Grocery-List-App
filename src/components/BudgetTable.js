@@ -7,20 +7,26 @@ const BudgetTable = () => {
 
     // Check local storage first for items
   const localStorageItems = JSON.parse(localStorage.getItem('budgetItems'));
+  const localStorageTaxPercentage = localStorage.getItem('taxPercentage');
+  const localStorageBudget = localStorage.getItem('budget');
 
   const [items, setItems] = useState(localStorageItems || initialItems);
-  const [budget, setBudget] = useState('');
-  const [taxPercentage, setTaxPercentage] = useState(0);
+  const [taxPercentage, setTaxPercentage] = useState(localStorageTaxPercentage || 0);
+  const [budget, setBudget] = useState(localStorageBudget || '');
 
-  const handleProductFound = (productName) => {
-    setItems([...items, { name: productName, price: '' }]);
-  };
-  
-  
   useEffect(() => {
     localStorage.setItem('budgetItems', JSON.stringify(items));
   }, [items]);
 
+  useEffect(() => {
+    localStorage.setItem('taxPercentage', taxPercentage);
+    localStorage.setItem('budget', budget);
+}, [taxPercentage, budget]);
+
+
+  const handleProductFound = (productName) => {
+    setItems([...items, { name: productName, price: '' }]);
+  };
 
   const handleItemChange = (index, field, value) => {
     const newItems = [...items];
