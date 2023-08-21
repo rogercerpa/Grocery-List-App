@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import Quagga from 'quagga';
 import { QrCodeIcon } from "@heroicons/react/24/outline";
 
@@ -28,19 +28,19 @@ const BarcodeScanner = ({ onProductFound }) => {
   //   Quagga.onDetected(handleBarcodeDetected);
   //   };
     
-  //   const handleBarcodeDetected = async (data) => {
-  //   if (data && data.codeResult) {
-  //   const barcode = data.codeResult.code;
-  //   const productName = await fetchProductData(barcode);
-  //   if (productName) {
-  //   onProductFound(productName);
-  //   }
-  //   } else {
-  //   return;
-  //   }
+    // const handleBarcodeDetected = async (data) => {
+    // if (data && data.codeResult) {
+    // const barcode = data.codeResult.code;
+    // const productName = await fetchProductData(barcode);
+    // if (productName) {
+    // onProductFound(productName);
+    // }
+    // } else {
+    // return;
+    // }
     
-  //   Quagga.stop();
-  //   };
+    // Quagga.stop();
+    // };
   
 
   // const fetchProductData = async (barcode) => {
@@ -59,11 +59,13 @@ const BarcodeScanner = ({ onProductFound }) => {
   //   }
   // };
 
-  // React.useEffect(() => {
+  // useEffect(() => {
   //   return () => {
   //     Quagga.stop();
+  //     Quagga.offDetected(handleBarcodeDetected); // Remove the event listener
   //   };
   // }, []);
+  
 
   return (
     <button 

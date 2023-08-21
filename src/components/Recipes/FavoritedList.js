@@ -22,44 +22,44 @@ const FavoriteList = ({ favoriteRecipes }) => {
   return (
     <div className="">
       <div className="mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="mx-auto max-w-2xl py-16 sm:py-24 lg:max-w-none lg:py-32">
+        <div className="mx-auto max-w-2xl py-8 sm:py-24 lg:max-w-none lg:py-10">
         <h1 className="text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl">
         Favorite Recipes
       </h1>
-      <h2 className="mt-6 text-lg leading-8 text-gray-600">
+      <h2 className=" text-lg leading-8 text-gray-600 p-4">
             Find all your favorite recipes here, start Cooking! 
       </h2>
 
-          <div className="grid grid-rows-4 grid-flow-col gap-2">
+          <div className="grid grid-rows-4 grid-flow-col gap-4">
             {favoriteRecipes.map((recipe) => (
-              <div key={recipe.id} className=" ">
-                <h3 className="p-1 text-sm text-gray-500 content-center">
-                  <Link to={`/recipe/${recipe.id}`}>
-                    {" "}
-                    <span className="" />
-                    {recipe.title}
-                  </Link>
-                </h3>
-                <div className="">
-                <img
-                    src={recipe.image} 
-                    alt={recipe.title} 
-                    className="h-20 w-20 rounded-lg sm:h-40 sm:w-40 md:h-60 md:w-60 lg:h-80 lg:w-80"
-                 />
+              <div key={recipe.id} className=" flex-col ">
+                <div className="flex flex-row">
+                    <img
+                        src={recipe.image} 
+                        alt={recipe.title} 
+                        className="h-20 w-20 rounded-lg sm:h-40 sm:w-40 md:h-60 md:w-60 lg:h-80 lg:w-80"
+                    />
+                    <div className="flex flex-col p-5">
 
+                      <h1 className="p-1 text-xl font-bold text-gray-700 content-center">
+                        <Link to={`/recipe/${recipe.id}`}>
+                         <span className="" />
+                            {recipe.title}
+                       </Link>
+                      </h1>
+
+                      <p className="text-base font-semibold text-gray-500"> hello this is a test
+                           {recipe.description}
+                      </p>
+                      
+                      <button 
+                  //    onClick={() => deleteFavorite(recipe.id)}
+                        className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
+                      >
+                          Delete
+                    </button>
+                    </div>
                 </div>
-
-                <p className="text-base font-semibold text-gray-900">
-                  {recipe.description}
-                </p>{" "}
-                
-                <button 
-              //  onClick={() => deleteFavorite(recipe.id)}
-                  className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
-                  >
-                Delete
-                </button>
-             
               </div>
             ))}
           </div>
