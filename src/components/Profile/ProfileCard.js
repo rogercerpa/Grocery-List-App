@@ -4,7 +4,6 @@ import FollowInfo from "./FollowInfo";
 import ActionButton from "./ActionButton";
 import EditProfileForm from "./EditProfileForm";
 import { PencilIcon } from "@heroicons/react/24/outline";
-import { StarIcon } from "@heroicons/react/20/solid";
 
 const ProfileCard = ({
   user,
@@ -15,7 +14,6 @@ const ProfileCard = ({
   handlePhotoChange,
   username,
   UserDefaultImage,
-  displayFavorites,
 }) => {
   const [bannerImage, setBannerImage] = useState("");
 
@@ -60,11 +58,6 @@ const ProfileCard = ({
       </div>
       <UserInfo user={user} username={username} />
       <FollowInfo followers={user.followers} following={user.following} />
-
-      {/* <button type="button" onClick={displayFavorites}>
-        <StarIcon className="h-8 w-8 text-yellow-500" />
-      </button> */}
-
       <ActionButton
         label="Sign Out"
         className="bg-red-600 hover:bg-yellow-500"

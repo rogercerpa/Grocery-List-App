@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import { getFirestore, doc, getDoc, setDoc } from "firebase/firestore"; // Import Firestore functions
 import Logo from "../assets/logo.png";
 
 // sign up state management
@@ -8,15 +9,28 @@ function SignIn() {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
 
-  //authentication from firebase
   const auth = getAuth();
+  const db = getFirestore();
 
-  // handles the sign in submit and waits for the email and password for be verified.
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       setError("");
-      await signInWithEmailAndPassword(auth, email, password);
+      const userCredential = await signInWithEmailAndPassword(auth, email, password);
+      const user = userCredential.user;
+
+      // Check if the user's document exists in Firestore
+      const userDocRef = doc(db, "users", user.uid);
+      const userDocSnap = await getDoc(userDocRef);
+
+      if (!userDocSnap.exists()) {
+        // Create a new document for the user if it doesn't exist
+        await setDoc(userDocRef, {
+          email: user.email,
+          // Add other default or initial data as needed
+        });
+      }
+      
     } catch (err) {
       setError(err.message);
     }
