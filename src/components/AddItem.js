@@ -12,15 +12,53 @@ import {
 } from "firebase/database";
 import { initializeApp } from "firebase/app";
 import { firebaseConfig } from "../firebaseConfig";
+import { getAuth } from "firebase/auth";
+
+
 
 export default function AddItem(props) {
   const app = initializeApp(firebaseConfig);
   const database = getDatabase(app);
-  const productsInDB = ref(database, "products");
-
+  const auth = getAuth();
+  const userUID = auth.currentUser ? auth.currentUser.uid : null;
   const [groceryItem, setGroceryItem] = useState([]);
   const [itemName, setItemName] = useState("");
   const [selectedOption, setSelectedOption] = useState("");
+  const productsInDB = ref(database, `users/${userUID}/products`);
+  
+  // if (!userUID) {
+  //   console.error("User not authenticated");
+  //   return <div>User not authenticated</div>;
+  // }
+
+  // Load products from the database when the component mounts
+    useEffect(() => {
+      const fetchData = async () => {
+        onValue(productsInDB, (snapshot) => {
+          if (snapshot.exists()) {
+            const data = snapshot.val();
+            const itemsArray = [];
+            for (const key in data) {
+              itemsArray.push({
+                id: key,
+                ...data[key],
+              });
+            }
+            setGroceryItem(itemsArray);
+          }
+        });
+      };
+  
+      fetchData();
+  
+      return () => {
+        // Unsubscribe from the firebase listener
+        off(productsInDB);
+      };
+    }, [productsInDB]);
+
+
+
 
   // handle input changes
   function handleChange(event) {
@@ -53,7 +91,7 @@ export default function AddItem(props) {
 
   // handle delete products from database
   function handleDelete(itemId) {
-    const itemRef = ref(database, `products/${itemId}`);
+    const itemRef = ref(database, `users/${userUID}/products/${itemId}`);
     remove(itemRef).then(() => {
       setGroceryItem((prevItems) =>
         prevItems.filter((item) => item.id !== itemId)
@@ -61,31 +99,7 @@ export default function AddItem(props) {
     });
   }
 
-  // Load products from the database when the component mounts
-  useEffect(() => {
-    const fetchData = async () => {
-      onValue(productsInDB, (snapshot) => {
-        if (snapshot.exists()) {
-          const data = snapshot.val();
-          const itemsArray = [];
-          for (const key in data) {
-            itemsArray.push({
-              id: key,
-              ...data[key],
-            });
-          }
-          setGroceryItem(itemsArray);
-        }
-      });
-    };
 
-    fetchData();
-
-    return () => {
-      // Unsubscribe from the firebase listener
-      off(productsInDB);
-    };
-  }, [productsInDB]);
 
   return (
     <div className=" container mx-auto p-5 space-y-4 divide-y-4 divide-slate-400/25">
