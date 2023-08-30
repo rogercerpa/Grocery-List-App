@@ -3,6 +3,7 @@ import UserInfo from "./UserInfo";
 import ActionButton from "./ActionButton";
 import EditProfileForm from "./EditProfileForm";
 import { PencilIcon } from "@heroicons/react/24/outline";
+import ProductCategories from './ProductCategories';
 
 const ProfileCard = ({
   user,
@@ -56,6 +57,7 @@ const ProfileCard = ({
         />
       </div>
       <UserInfo user={user} username={username} />
+      <ProductCategories userUID={user.uid}/>
       <ActionButton
         label="Sign Out"
         className="bg-red-600 hover:bg-yellow-500"
