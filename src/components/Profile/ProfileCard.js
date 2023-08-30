@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import UserInfo from "./UserInfo";
-import FollowInfo from "./FollowInfo";
 import ActionButton from "./ActionButton";
 import EditProfileForm from "./EditProfileForm";
 import { PencilIcon } from "@heroicons/react/24/outline";
@@ -57,7 +56,6 @@ const ProfileCard = ({
         />
       </div>
       <UserInfo user={user} username={username} />
-      <FollowInfo followers={user.followers} following={user.following} />
       <ActionButton
         label="Sign Out"
         className="bg-red-600 hover:bg-yellow-500"
