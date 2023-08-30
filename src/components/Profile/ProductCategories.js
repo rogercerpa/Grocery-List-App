@@ -60,7 +60,6 @@ const ProductCategories = ({ userUID }) => {
                     <li key={index} className="flex justify-between items-center mb-1">
                         <span>{category}</span>
                         <div>
-                            {/* You can replace these with icons/buttons for better UI */}
                             <span onClick={() => handleEditCategory(index, prompt('Edit category name:', category))}>Edit</span>
                             <span onClick={() => handleDeleteCategory(index)}>Delete</span>
                         </div>
