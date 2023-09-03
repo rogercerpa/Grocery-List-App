@@ -3,7 +3,7 @@ import BarcodeScanner from './BarcodeScanner'; // Assuming they're in the same d
 
 
 const BudgetTable = () => {
-  const initialItems = [{ name: '', price: '' }];
+  const initialItems = [{ name: '', price: '', quantity: 1 }];
 
     // Check local storage first for items
   const localStorageItems = JSON.parse(localStorage.getItem('budgetItems'));
@@ -25,7 +25,7 @@ const BudgetTable = () => {
 
 
   const handleProductFound = (productName) => {
-    setItems([...items, { name: productName, price: '' }]);
+    setItems([...items, { name: productName, price: '',quantity: 1 }]);
   };
 
   const handleItemChange = (index, field, value) => {
@@ -35,7 +35,7 @@ const BudgetTable = () => {
   };
 
   const addItem = () => {
-    setItems([...items, { name: '', price: '' }]);
+    setItems([...items, { name: '', price: '',quantity: 1 }]);
   };
 
   const resetTable = () => {
@@ -43,7 +43,7 @@ const BudgetTable = () => {
     localStorage.removeItem('budgetItems');
   };
 
-  const totalValue = items.reduce((acc, item) => acc + (Number(item.price) || 0), 0);
+  const totalValue = items.reduce((acc, item) => acc + (Number(item.price) || 0) * item.quantity, 0);
   const total = Number(totalValue.toFixed(2));
   const taxAmount = (total * taxPercentage) / 100;
   const totalWithTax = total + taxAmount;
@@ -60,6 +60,7 @@ const BudgetTable = () => {
         <thead>
           <tr>
             <th className="py-2 px-4 border-b">Item</th>
+            <th className="py-2 px-4 border-b">Quantity</th>
             <th className="py-2 px-4 border-b">Price</th>
           </tr>
         </thead>
@@ -75,6 +76,15 @@ const BudgetTable = () => {
                <span colSpan="2" className='' >
                  <BarcodeScanner onProductFound={handleProductFound} />
                 </span>
+              </td>
+              <td className="border-b">
+                    <input
+                  type="number"
+                  className="border rounded w-full py-2 px-3"
+                  min="1"
+                  value={item.quantity}
+                  onChange={(e) => handleItemChange(index, 'quantity', e.target.value)}
+                  />
               </td>
 
               <td className=" border-b relative m-2">
