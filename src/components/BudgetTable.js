@@ -69,7 +69,7 @@ const BudgetTable = () => {
             <tr key={index} >
               <td className="flex  py-2 px-4 border-b items-center">
                 <input
-                  className="grow border rounded w-full py-2 px-3"
+                  className="grow border rounded w-auto py-2 px-1"
                   value={item.name}
                   onChange={(e) => handleItemChange(index, 'name', e.target.value)}
                 />
@@ -78,13 +78,13 @@ const BudgetTable = () => {
                 </span>
               </td>
               <td className="border-b">
-                    <input
+              <input
                   type="number"
-                  className="border rounded w-full py-2 px-3"
+                  className="border rounded py-2 px-3 w-16"  // Using w-16 for width
                   min="1"
                   value={item.quantity}
                   onChange={(e) => handleItemChange(index, 'quantity', e.target.value)}
-                  />
+                />
               </td>
 
               <td className=" border-b relative m-2">
