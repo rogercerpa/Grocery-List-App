@@ -55,7 +55,7 @@ const BudgetTable = () => {
   
 
   return (
-    <div className="w-full max-w-lg mx-auto">
+    <div className="w-full max-w-lg mx-auto p-4">
       <table className="min-w-full bg-white border border-gray-200 ">
         <thead>
           <tr>
@@ -155,12 +155,12 @@ const BudgetTable = () => {
         </span>
     </td>
     <td className="py-2 px-4">
-        <button 
-            onClick={resetTable} 
-            className="bg-red-500 hover:bg-red-700 text-white font-bold  p-2 rounded"
-        >
-            Reset Table
-        </button>
+      <button 
+      onClick={resetTable} 
+      className="w-full sm:w-auto bg-red-500 hover:bg-red-700 text-white text-xs sm:text-sm md:text-base font-bold py-2 px-4 rounded whitespace-nowrap overflow-hidden overflow-ellipsis">
+      Reset Table
+      </button>
+
         </td>
     </tr>
 
