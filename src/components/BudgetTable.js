@@ -55,21 +55,21 @@ const BudgetTable = () => {
   
 
   return (
-    <div className="w-full max-w-lg mx-auto">
-      <table className="min-w-full bg-white border border-gray-200 ">
+    <div className="w-full max-w-md mx-auto">
+      <table className="min-w-full bg-white  ">
         <thead>
           <tr>
-            <th className="py-2 px-4 border-b">Item</th>
-            <th className="py-2 px-4 border-b">Quantity</th>
-            <th className="py-2 px-4 border-b">Price</th>
+            <th className="py-2 px-4 ">Item</th>
+            <th className="py-2 px-4 ">Quantity</th>
+            <th className="py-2 px-4 ">Price</th>
           </tr>
         </thead>
         <tbody>
           {items.map((item, index) => (
             <tr key={index} >
-              <td className="flex  py-2 px-4 border-b items-center">
+              <td className="flex  py-2 px-4  items-center">
                 <input
-                  className="grow border rounded w-auto py-2 px-1"
+                  className="grow border rounded w-auto py-2"
                   value={item.name}
                   onChange={(e) => handleItemChange(index, 'name', e.target.value)}
                 />
@@ -77,7 +77,7 @@ const BudgetTable = () => {
                  <BarcodeScanner onProductFound={handleProductFound} />
                 </span>
               </td>
-              <td className="border-b">
+              <td >
               <input
                   type="number"
                   className="border rounded py-2 px-3 w-16"  // Using w-16 for width
@@ -87,11 +87,11 @@ const BudgetTable = () => {
                 />
               </td>
 
-              <td className=" border-b relative m-2">
+              <td className="relative m-2">
                 <span className="absolute left-2 top-1/2 transform -translate-y-1/2">$</span>
                 <input
                     type="number"
-                    className="shrink border rounded w-full py-2 px-3 pl-6" 
+                    className="shrink border rounded w-full py-2 px-1 " 
                     value={item.price}
                     onChange={(e) => handleItemChange(index, 'price', e.target.value)}
                 />
