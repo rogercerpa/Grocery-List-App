@@ -55,7 +55,7 @@ const BudgetTable = () => {
   
 
   return (
-    <div className="w-auto max-w-md mx-auto">
+    <div className="w-fit max-w-md mx-auto">
       <table className="min-w-full bg-white  ">
         <thead>
           <tr>
