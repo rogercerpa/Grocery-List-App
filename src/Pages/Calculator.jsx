@@ -4,7 +4,7 @@ import BudgetTable  from "../components/BudgetTable"
 
 function Calculator() {
   return (
-<div className="w-full flex flex-col items-center ">
+<div className="w-auto flex flex-col items-center ">
     <h1 className="text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl">
         Calculate your Grocery cost
     </h1>
