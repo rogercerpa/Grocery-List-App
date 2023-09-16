@@ -55,7 +55,7 @@ const BudgetTable = () => {
   
 
   return (
-    <div className="">
+    <div className="container mx-auto p-5 space-y-4 divide-y-4 divide-slate-400/25">
       <table className=" ">
         <thead>
           <tr>
