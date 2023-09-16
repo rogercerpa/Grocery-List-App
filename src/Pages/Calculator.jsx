@@ -1,5 +1,5 @@
 import React from 'react'
-import BudgetTable  from "../components/BudgetTable"
+// import BudgetTable  from "../components/BudgetTable"
 
 
 function Calculator() {
@@ -12,7 +12,7 @@ function Calculator() {
         Stay within budget! Add all your items as you go.
     </h2>
     <div >
-        <BudgetTable/>
+        {/* <BudgetTable/> */}
     </div>
 </div>
 
