@@ -56,46 +56,47 @@ const BudgetTable = () => {
 
   return (
     <div className="container mx-auto p-5 space-y-4 divide-y-4 divide-slate-400/25">
-      <table className=" ">
-        <thead>
-          <tr>
-            <th className="py-2 px-4 ">Item</th>
-            <th className="py-2 px-4 ">Quantity</th>
-            <th className="py-2 px-4 ">Price</th>
+      <table className="md:table w-full">
+        <thead className="md:table-header-group">
+          <tr className="md:table-row">
+              <th className="table-cell py-1 px-2 text-xs md:py-2 md:px-4 md:text-base">Item</th>
+              <th className="table-cell py-1 px-2 text-xs md:py-2 md:px-4 md:text-base">Quantity</th>
+              <th className="table-cell py-1 px-2 text-xs md:py-2 md:px-4 md:text-base">Price</th>
           </tr>
-        </thead>
-        <tbody>
+      </thead>
+        <tbody className="md:table-row-group">
           {items.map((item, index) => (
-            <tr key={index} >
-              <td className="flex  py-2 px-4  items-center">
+            <tr key={index} className="md:table-row" >
+              <td className="table-cell py-1 px-2">
+              <div className="flex flex-row space-x-2">
                 <input
-                  className="grow border rounded w-auto py-2"
-                  value={item.name}
-                  onChange={(e) => handleItemChange(index, 'name', e.target.value)}
+                    className="grow border rounded w-full py-1 text-xs md:py-2 md:text-base"
+                    value={item.name}
+                    onChange={(e) => handleItemChange(index, 'name', e.target.value)}
                 />
-               <span colSpan="2" className='' >
-                 <BarcodeScanner onProductFound={handleProductFound} />
-                </span>
+                <BarcodeScanner onProductFound={handleProductFound} />
+            </div>
               </td>
-              <td >
+
+              <td className="table-cell py-1 px-2">
               <input
                   type="number"
-                  className="border rounded py-2 px-3 w-16"  // Using w-16 for width
+                  className="border rounded py-1 px-2 w-10 text-xs md:w-16 md:py-2 md:px-3 md:text-base"  // Using w-16 for width
                   min="1"
                   value={item.quantity}
                   onChange={(e) => handleItemChange(index, 'quantity', e.target.value)}
                 />
-              </td>
-
-              <td className="relative m-2">
-                <span className="absolute left-2 top-1/2 transform -translate-y-1/2">$</span>
+                </td>
+              <td className="table-cell py-1 px-2 relative">
+                <span className="absolute left-1 top-1/2 transform -translate-y-1/2 text-xs md:left-2 md:text-base">$</span>
                 <input
                     type="number"
-                    className="shrink border rounded w-full py-2 px-1 " 
+                    className="shrink border rounded w-full py-1 px-1 pl-5 text-xs md:py-2 md:pl-7 md:text-base" 
                     value={item.price}
                     onChange={(e) => handleItemChange(index, 'price', e.target.value)}
                 />
-                </td>
+             
+              </td>
 
             </tr>
           ))}
@@ -117,7 +118,7 @@ const BudgetTable = () => {
                 <span className="absolute left-1 top-1/2 transform -translate-y-1/2">%</span>
                         <input 
                           type="number" 
-                          className="border rounded w-full py-2 px-3 pl-7"  
+                          className="border rounded w-20 py-2 px-3 pl-7"  
                           value={taxPercentage} 
                           onChange={(e) => setTaxPercentage(e.target.value ? Number(e.target.value) : "")}
 
@@ -141,7 +142,7 @@ const BudgetTable = () => {
             <span className="absolute left-1 top-1/2 transform -translate-y-1/2">$</span>
             <input
                 type="number"
-                className="border rounded w-full py-2 pl-7 pr-3"  
+                className="border rounded w-20 py-2 pl-7 pr-3"  
                 value={budget}
                 onChange={(e) => setBudget(e.target.value)}
             />
