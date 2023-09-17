@@ -68,7 +68,7 @@ const BudgetTable = () => {
           {items.map((item, index) => (
             <tr key={index} className="md:table-row" >
               <td className="table-cell py-1 px-2">
-              <div className="flex flex-row space-x-2">
+              <div className="flex flex-row space-x-2 gap-1">
                 <input
                     className="grow border rounded w-full py-1 text-xs md:py-2 md:text-base"
                     value={item.name}
@@ -91,7 +91,7 @@ const BudgetTable = () => {
                 <span className="absolute left-1 top-1/2 transform -translate-y-1/2 text-xs md:left-2 md:text-base">$</span>
                 <input
                     type="number"
-                    className="shrink border rounded w-full py-1 px-1 pl-5 text-xs md:py-2 md:pl-7 md:text-base" 
+                    className="shrink border rounded w-32 py-1 px-1 pl-5 text-xs md:py-2 md:pl-7 md:text-base" 
                     value={item.price}
                     onChange={(e) => handleItemChange(index, 'price', e.target.value)}
                 />
@@ -118,7 +118,7 @@ const BudgetTable = () => {
                 <span className="absolute left-1 top-1/2 transform -translate-y-1/2">%</span>
                         <input 
                           type="number" 
-                          className="border rounded w-20 py-2 px-3 pl-7"  
+                          className="border rounded w-20 py-2 px-3 "  
                           value={taxPercentage} 
                           onChange={(e) => setTaxPercentage(e.target.value ? Number(e.target.value) : "")}
 
@@ -142,7 +142,7 @@ const BudgetTable = () => {
             <span className="absolute left-1 top-1/2 transform -translate-y-1/2">$</span>
             <input
                 type="number"
-                className="border rounded w-20 py-2 pl-7 pr-3"  
+                className="border rounded w-20 py-2 pl-3 pr-3"  
                 value={budget}
                 onChange={(e) => setBudget(e.target.value)}
             />
