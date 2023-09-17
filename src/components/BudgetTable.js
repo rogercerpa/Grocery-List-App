@@ -70,7 +70,7 @@ const BudgetTable = () => {
               <td className="table-cell py-1 px-2">
               <div className="flex flex-row space-x-2 gap-1">
                 <input
-                    className="grow border rounded w-full py-1 text-xs md:py-2 md:text-base"
+                    className="grow border rounded w-full py-1 px-4 text-sm md:py-2 md:text-base"
                     value={item.name}
                     onChange={(e) => handleItemChange(index, 'name', e.target.value)}
                 />
@@ -81,7 +81,7 @@ const BudgetTable = () => {
               <td className="table-cell py-1 px-2">
               <input
                   type="number"
-                  className="border rounded py-1 px-2 w-10 text-xs md:w-16 md:py-2 md:px-3 md:text-base"  // Using w-16 for width
+                  className="border rounded py-1 px-2 w-10 text-sm md:w-16 md:py-2 md:px-3 md:text-base"  // Using w-16 for width
                   min="1"
                   value={item.quantity}
                   onChange={(e) => handleItemChange(index, 'quantity', e.target.value)}
@@ -91,7 +91,7 @@ const BudgetTable = () => {
                 <span className="absolute left-1 top-1/2 transform -translate-y-1/2 text-xs md:left-2 md:text-base">$</span>
                 <input
                     type="number"
-                    className="shrink border rounded w-32 py-1 px-1 pl-5 text-xs md:py-2 md:pl-7 md:text-base" 
+                    className="shrink border rounded w-32 py-1 pl-1 text-sm md:py-2 md:pl-7 md:text-base" 
                     value={item.price}
                     onChange={(e) => handleItemChange(index, 'price', e.target.value)}
                 />
