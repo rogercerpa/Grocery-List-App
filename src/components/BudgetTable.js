@@ -112,58 +112,58 @@ const BudgetTable = () => {
                   </td>
               </tr>
 
+            <div className=''>
               <tr>
-            <td className="py-2 px-4">Tax Percentage:</td>
-            <td className=" relative">
-                <span className="absolute left-1 top-1/2 transform -translate-y-1/2">%</span>
-                        <input 
-                          type="number" 
-                          className="border rounded w-20 py-2 px-3 "  
-                          value={taxPercentage} 
-                          onChange={(e) => setTaxPercentage(e.target.value ? Number(e.target.value) : "")}
+                <td className="py-2 px-2 md:px-4 text-xs md:text-base">Tax Percentage:</td>
+                <td className="relative flex justify-end items-center">
+                <span className="ml-2">%</span>
+                    <input 
+                        type="number" 
+                        className="border rounded py-1 px-3 w-20"  
+                        value={taxPercentage} 
+                        onChange={(e) => setTaxPercentage(e.target.value ? Number(e.target.value) : "")}
+                        
+                    />
+                    
+                </td>
+            </tr>
 
-                        />
-            </td>
-          </tr>
 
-
-        <tr>
-             <td className="py-2 px-4">Tax Amount:</td>
-             <td className="py-2 px-4">${taxAmount.toFixed(2)}</td>
-        </tr>
-       <tr>
-            <td className="py-2 px-4">Total + Tax:</td>
-            <td className="py-2 px-4">${totalWithTax.toFixed(2)}</td>
-       </tr>
-
-       <tr>
-        <td className="py-2 px-4">Budget:</td>
-        <td className=" relative">
-            <span className="absolute left-1 top-1/2 transform -translate-y-1/2">$</span>
-            <input
-                type="number"
-                className="border rounded w-20 py-2 pl-3 pr-3"  
-                value={budget}
-                onChange={(e) => setBudget(e.target.value)}
-            />
-         
-        </td>
-      </tr>
-      <tr>
-    <td className="flex justify-between items-center py-2 px-4">
-        <span className={`mt-2 ${remainingBudgetColor}`}>
-            Remaining: ${remainingBudget.toFixed(2)}
-        </span>
-    </td>
-    <td className="py-2 px-4">
-      <button 
-      onClick={resetTable} 
-      className="w-full sm:w-auto bg-red-500 hover:bg-red-700 text-white text-xs sm:text-sm md:text-base font-bold py-2 px-4 rounded whitespace-nowrap overflow-hidden overflow-ellipsis">
-      Reset Table
-      </button>
-
-        </td>
-    </tr>
+            <tr>
+                <td className="text-xs md:text-base py-2 px-2 md:px-4">Tax Amount:</td>
+                <td className="py-2 px-2 md:px-4">${taxAmount.toFixed(2)}</td>
+            </tr>
+            <tr>
+                <td className="text-xs md:text-base py-2 px-2 md:px-4">Total + Tax:</td>
+                <td className="py-2 px-2 md:px-4">${totalWithTax.toFixed(2)}</td>
+            </tr>
+            <tr>
+                <td className="text-xs md:text-base py-2 px-2 md:px-4">Budget:</td>
+                <td className="relative">
+                    <span className="absolute left-1 top-1/2 transform -translate-y-1/2">$</span>
+                    <input
+                        type="number"
+                        className="border rounded w-full md:w-20 py-2 pl-3 pr-3"  
+                        value={budget}
+                        onChange={(e) => setBudget(e.target.value)}
+                    />
+                </td>
+            </tr>
+            <tr>
+                <td className="flex justify-between items-center py-2 px-2 md:px-4">
+                    <span className={`mt-2 ${remainingBudgetColor}`}>
+                        Remaining: ${remainingBudget.toFixed(2)}
+                    </span>
+                </td>
+                <td className="py-2 px-2 md:px-4">
+                    <button 
+                        onClick={resetTable} 
+                        className="w-full sm:w-auto bg-red-500 hover:bg-red-700 text-white text-xs sm:text-sm md:text-base font-bold py-2 px-4 rounded whitespace-nowrap overflow-hidden overflow-ellipsis">
+                        Reset Table
+                    </button>
+                </td>
+            </tr>
+            </div>
 
         </tbody>
       </table>
