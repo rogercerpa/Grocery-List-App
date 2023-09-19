@@ -12,7 +12,7 @@ const FavoriteList = ({ favoriteRecipes }) => {
   //     const recipeRef = doc(firestore, "users", auth.currentUser.uid, "favoriteRecipes", recipeId);
   //     await deleteDoc(recipeRef);
   //     // After deletion, fetch the favorites again to update the list
-  //     displayFavorites();
+  //     favoriteRecipes();
   //   } catch (error) {
   //     console.error("Error deleting favorite recipe: ", error);
   //   }
@@ -53,7 +53,7 @@ const FavoriteList = ({ favoriteRecipes }) => {
                       </p>
                       
                       <button 
-                  //    onClick={() => deleteFavorite(recipe.id)}
+                        // onClick={() => deleteFavorite(recipe.id)}
                         className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
                       >
                           Delete
