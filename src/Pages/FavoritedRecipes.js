@@ -4,15 +4,11 @@ import FavoritedList from "../components/Recipes/FavoritedList";
 import CircularProgress from "@mui/material/CircularProgress";
 import { getAuth } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
-import { firebaseConfig } from "../firebaseConfig";
-import { initializeApp } from "firebase/app";
 import { getDatabase } from "firebase/database";
-
+import app from '../firebase.jsx';
 
 
 function FavoritedRecipes() {
-
-    const app = initializeApp(firebaseConfig);
     const db = getDatabase(app);
     const auth = getAuth();
     const firestore = getFirestore();

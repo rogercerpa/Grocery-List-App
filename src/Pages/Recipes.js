@@ -1,13 +1,12 @@
 import React, { useState, useEffect, useCallback } from "react";
 import axios from "axios";
-import { firebaseConfig } from "../firebaseConfig";
-import { initializeApp } from "firebase/app";
 import { getDatabase, ref, set, push, get, child } from "firebase/database";
 import RecipeDetails from "../components/Recipes/RecipeDetails";
 import { getAuth } from "firebase/auth";
 import { getFirestore, doc, setDoc } from "firebase/firestore";
 import RecipeCard from "../components/Recipes/RecipeCard";
 import RecipeSearchForm from "../components/Recipes/RecipeSearchForm";
+import app from '../firebase';
 
 const Recipes = (props) => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -16,7 +15,6 @@ const Recipes = (props) => {
   const { user } = props;
   const [feedback, setFeedback] = useState("");
   const [ingredientsInDB, setIngredientsInDB] = useState([]);
-  const app = initializeApp(firebaseConfig);
   const db = getDatabase(app);
   const auth = getAuth();
   const firestore = getFirestore();

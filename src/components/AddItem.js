@@ -10,14 +10,11 @@ import {
   set,
   push,
 } from "firebase/database";
-import { initializeApp } from "firebase/app";
-import { firebaseConfig } from "../firebaseConfig";
+import app from '../firebase'; 
 import { getAuth } from "firebase/auth";
 
 
-
 export default function AddItem(props) {
-  const app = initializeApp(firebaseConfig);
   const database = getDatabase(app);
   const auth = getAuth();
   const userUID = auth.currentUser ? auth.currentUser.uid : null;
@@ -25,7 +22,8 @@ export default function AddItem(props) {
   const [itemName, setItemName] = useState("");
   const [selectedOption, setSelectedOption] = useState("");
   const productsInDB = ref(database, `users/${userUID}/products`);
-  
+  const userCategories = ref(database, `users/${userUID}/categories`);
+  console.log("this item keep mounting infinitly")
   // if (!userUID) {
   //   console.error("User not authenticated");
   //   return <div>User not authenticated</div>;
@@ -55,7 +53,7 @@ export default function AddItem(props) {
         // Unsubscribe from the firebase listener
         off(productsInDB);
       };
-    }, [productsInDB]);
+    }, []);
 
 
 

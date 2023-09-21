@@ -1,12 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { getFirestore, doc, getDoc } from "firebase/firestore";
-import { initializeApp } from "firebase/app";
-import { firebaseConfig } from "../firebaseConfig";
 import UserDefaultImage from "../assets/day22-owl.png";
 import ProfileCard from "../components/Profile/ProfileCard";
-
+import app from '../firebase';
 // Initialize Firebase
-const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
 const Profile = ({ user }) => {
