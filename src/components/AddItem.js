@@ -22,7 +22,7 @@ export default function AddItem(props) {
   const [itemName, setItemName] = useState("");
   const [selectedOption, setSelectedOption] = useState("");
   const productsInDB = ref(database, `users/${userUID}/products`);
-  const userCategories = ref(database, `users/${userUID}/categories`);
+  // const userCategories = ref(database, `users/${userUID}/categories`);
   console.log("this item keep mounting infinitly")
   // if (!userUID) {
   //   console.error("User not authenticated");
