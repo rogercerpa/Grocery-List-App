@@ -5,13 +5,11 @@ import Recipes from "./Pages/Recipes";
 import Home from "./Pages/Home";
 import FavoritedRecipes from "./Pages/FavoritedRecipes";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
-import { firebaseConfig } from "./firebaseConfig";
-import { initializeApp } from "firebase/app";
 import { getDatabase, ref, onValue, off } from "firebase/database";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Footer from "./components/HeaderFooter/Footer";
 import Calculator from "./Pages/Calculator"
-
+import app from './firebase.jsx';
 function App() {
   //dark mode function
 
@@ -24,7 +22,6 @@ function App() {
 
   //firebase settings
 
-  const app = initializeApp(firebaseConfig);
   const database = getDatabase(app);
   const productsInDB = ref(database, "products");
 
