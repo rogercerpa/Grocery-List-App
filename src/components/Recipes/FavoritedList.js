@@ -23,7 +23,7 @@ const FavoriteList = ({ favoriteRecipes }) => {
     <div className="w-fit max-w-md mx-auto">
       <div className="mx-auto px-4 sm:px-6 lg:px-8">
         <div className="mx-auto max-w-2xl py-8 sm:py-24 lg:max-w-none lg:py-10">
-        <h1 className="text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl">
+        <h1 className="text-2xl font-bold tracking-tight text-gray-900 sm:text-4xl">
         Favorite Recipes
       </h1>
       <h2 className=" text-lg leading-8 text-gray-600 p-4">
