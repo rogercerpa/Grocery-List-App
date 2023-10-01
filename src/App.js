@@ -11,9 +11,7 @@ import Footer from "./components/HeaderFooter/Footer";
 import Calculator from "./Pages/Calculator"
 import app from './firebase.jsx';
 function App() {
-  //dark mode function
-
-  const [darkMode, setDarkMode] = React.useState(false);
+   const [darkMode, setDarkMode] = React.useState(false);
 
   function toggleDarkMode() {
     setDarkMode((prevState) => (prevState = !prevState));
