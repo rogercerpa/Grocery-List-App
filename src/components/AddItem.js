@@ -69,23 +69,44 @@ export default function AddItem(props) {
     setSelectedOption(event.target.value);
   }
 
-  // handle submit function
-  function handleSubmit(event) {
-    event.preventDefault();
 
-    if (itemName.trim() !== "") {
-      const newItem = {
-        itemName: itemName,
-        category: selectedOption,
+// handle submit function
+function handleSubmit(event) {
+  event.preventDefault();
+
+  if (itemName.trim() !== "") {
+    const newItem = {
+      itemName: itemName,
+      category: selectedOption,
+    };
+
+    // Check if an item with the same name and category exists
+    const existingItemIndex = groceryItem.findIndex(
+      (item) =>
+        item.itemName === newItem.itemName && item.category === newItem.category
+    );
+
+    if (existingItemIndex !== -1) {
+      // Update the existing item
+      const updatedGroceryItem = [...groceryItem];
+      updatedGroceryItem[existingItemIndex] = {
+        ...newItem,
+        id: groceryItem[existingItemIndex].id, // Preserve the existing item's ID
       };
+      setGroceryItem(updatedGroceryItem);
+    } else {
+      // Add a new item to Firebase
       const newItemRef = push(productsInDB);
       newItem.id = newItemRef.key;
       set(newItemRef, newItem);
-      setGroceryItem((prevItems) => [...prevItems, newItem]);
-      setItemName("");
-      console.log("form submitted");
     }
+
+    setItemName("");
+    console.log("form submitted");
   }
+}
+
+
 
   // handle delete products from database
   function handleDelete(itemId) {
