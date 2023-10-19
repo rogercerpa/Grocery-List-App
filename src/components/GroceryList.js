@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { AiFillDelete } from "react-icons/ai";
 
 export default function GroceryList(props) {
@@ -13,16 +13,16 @@ export default function GroceryList(props) {
     return grouped;
   }, {});
 
-  //once the hide/show button is trigger, this activates/shows or hide the items within that category.
-  const [visibleCategories, setVisibleCategories] = useState(() => {
+  const [visibleCategories, setVisibleCategories] = useState({});
+
+  useEffect(() => {
     const initialVisible = {};
     Object.keys(groupedItems).forEach((category) => {
       initialVisible[category] = true;
     });
-    return initialVisible;
-  });
+    setVisibleCategories(initialVisible);
+  }, []); // Empty dependency array ensures this runs only once on mount
 
-  //handles the button for show or hide category items.
   const toggleCategory = (category) => {
     setVisibleCategories((prevVisible) => ({
       ...prevVisible,
