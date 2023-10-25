@@ -25,7 +25,8 @@ const BudgetTable = () => {
 
 
   const handleProductFound = (productName) => {
-    setItems([...items, { name: productName, price: '',quantity: 1 }]);
+    // setItems([...items, { name: productName, price: '',quantity: 1 }]);
+    console.log(productName)
   };
 
   const handleItemChange = (index, field, value) => {
@@ -74,7 +75,7 @@ const BudgetTable = () => {
                     value={item.name}
                     onChange={(e) => handleItemChange(index, 'name', e.target.value)}
                 />
-                <BarcodeScanner onProductFound={handleProductFound} />
+                {/* <BarcodeScanner onProductFound={handleProductFound} /> */}
             </div>
               </td>
 
