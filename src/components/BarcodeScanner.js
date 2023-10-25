@@ -66,7 +66,7 @@ const BarcodeScanner = ({ onProductFound }) => {
         Quagga.stop();
         Quagga.offDetected(handleBarcodeDetected); // Remove the event listener
     }
-    };
+    };   
   }, []);
   
 
