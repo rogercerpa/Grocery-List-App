@@ -19,8 +19,6 @@ Modal.setAppElement("#root");
 const navigation = [
   { name: "Grocery List", href: "/", current: true },
   { name: "Recipes", href: "/recipes", current: false },
-  // { name: "Projects", href: "#", current: false },
-  // { name: "Calendar", href: "#", current: false },
 ];
 
 function classNames(...classes) {
@@ -72,24 +70,6 @@ export default function CombinedNavbar(props) {
               </Link>
             </div>
           </div>
-
-          {/* <div className="hidden md:flex md:flex-grow items-center justify-center md:ml-6">
-            {updatedNavigation.map((item) => (
-              <Link
-                key={item.name}
-                to={item.href}
-                className={classNames(
-                  item.current
-                    ? "border-b-2 border-black"
-                    : " hover:text-black",
-                  "rounded-md px-3 py-2 text-sm font-medium text-gray-500"
-                )}
-                aria-current={item.current ? "page" : undefined}
-              >
-                {item.name}
-              </Link>
-            ))}
-          </div> */}
           
           <div className="flex items-center ml-auto">
             {!user && (
@@ -142,27 +122,6 @@ export default function CombinedNavbar(props) {
               </>
             )}
           </div>
-          {/* <Disclosure.Panel className="sm:hidden">
-            <div className="space-y-1 px-2 pb-3 pt-2">
-              {updatedNavigation.map((item) => (
-                <Disclosure.Button>
-                  <Link
-                    key={item.name}
-                    to={item.href}
-                    className={classNames(
-                      item.current
-                        ? "border-b-2 border-black"
-                        : " hover:text-black",
-                      "rounded-md px-3 py-2 text-sm font-medium text-gray-500"
-                    )}
-                    aria-current={item.current ? "page" : undefined}
-                  >
-                    {item.name}
-                  </Link>
-                </Disclosure.Button>
-              ))}
-            </div>
-          </Disclosure.Panel> */}
         </>
       )}
     </Disclosure>

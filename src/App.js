@@ -92,7 +92,9 @@ function App() {
           <Route path="/favoritedrecipes" element={<FavoritedRecipes user={user} />} />
         </Routes>
         </main>
-       <Footer /> 
+       <Footer 
+       user={user}
+       /> 
       </section>
       
     </Router>
