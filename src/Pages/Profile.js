@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { getFirestore, doc, getDoc } from "firebase/firestore";
-import UserDefaultImage from "../assets/day22-owl.png";
 import ProfileCard from "../components/Profile/ProfileCard";
 import app from '../firebase';
 import { useNavigate } from "react-router-dom"; 
@@ -12,7 +11,6 @@ const Profile = ({ user }) => {
 
   const navigate = useNavigate();  // Initialize useHistory
   const [username, setUsername] = useState(user.displayName || "");
-  const [imageUrl, setImageUrl] = useState("");
 
   useEffect(() => {
 
@@ -27,11 +25,10 @@ const Profile = ({ user }) => {
 
       if (docSnap.exists()) {
         setUsername(docSnap.data().username);
-        setImageUrl(docSnap.data().imageUrl);
       } else {
         // If there's no user data in the database, use the default image
-        setImageUrl(UserDefaultImage);
-        console.log(UserDefaultImage);
+        console.log("no default user image")
+        
       }
     };
 
@@ -39,12 +36,11 @@ const Profile = ({ user }) => {
   }, [user, navigate]);
 
   return (
-    <main className="bg-gray-200 font-sans h-screen w-full flex flex-row justify-center items-center flex-grow">
+    <main className="font-sans w-full flex flex-row justify-center items-center flex-grow">
       {user && (
         <ProfileCard
           user={user}
           username={username}
-          UserDefaultImage={imageUrl}
         />
       )}
     </main>
