@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 import { getFirestore, doc, setDoc } from "firebase/firestore"; // Import Firestore functions
 import Logo from "../assets/logo.png";
+import { Link } from "react-router-dom";
 
 //sign up state managemenet
 function SignUp() {
@@ -94,6 +95,15 @@ function SignUp() {
             </button>
           </div>
         </form>
+        <p class="mt-10 text-center text-sm text-gray-500">
+          Already a Member? 
+          <Link
+            to="/signup"
+            class="font-semibold leading-6 text-sky-600 hover:text-sky-500"
+          >
+            Sign-In
+          </Link>
+        </p>
 
         {error && <p>{error}</p>}
       </div>

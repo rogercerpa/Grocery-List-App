@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import { getFirestore, doc, getDoc, setDoc } from "firebase/firestore"; // Import Firestore functions
 import Logo from "../assets/logo.png";
+import { Link } from "react-router-dom";
 
 // sign up state management
 function SignIn() {
@@ -108,12 +109,12 @@ function SignIn() {
         </form>
         <p class="mt-10 text-center text-sm text-gray-500">
           Not a member?
-          <a
-            href="/"
+          <Link
+            to="/signup"
             class="font-semibold leading-6 text-sky-600 hover:text-sky-500"
           >
             Start a 14 day free trial
-          </a>
+          </Link>
         </p>
         {error && <p>{error}</p>}
       </div>
