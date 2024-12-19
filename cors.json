@@ -1,0 +1,8 @@
+[
+  {
+    "origin": ["https://grocerylist-app.vercel.app/"],
+    "method": ["GET", "POST", "PUT", "DELETE", "HEAD"],
+    "responseHeader": ["Content-Type", "Authorization", "Content-Length", "User-Agent", "X-Requested-With", "If-Modified-Since", "If-Match", "If-None-Match", "If-Unmodified-Since", "x-firebase-storage-version"],
+    "maxAgeSeconds": 3600
+  }
+]

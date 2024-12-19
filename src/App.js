@@ -1,63 +1,100 @@
 import React from "react";
-import "./App.css";
-import Header from "./components/Header";
-import Image from "./components/Image";
-import AddItem from "./components/AddItem";
-import { firebaseData } from "./firebase";
-import { nanoid } from "nanoid";
+import Header from "./components/HeaderFooter/Header";
+import Profile from "./Pages/Profile";
+import Recipes from "./Pages/Recipes";
+import Home from "./Pages/Home";
+import FavoritedRecipes from "./Pages/FavoritedRecipes";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
+import { getDatabase, ref, onValue, off } from "firebase/database";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import Footer from "./components/HeaderFooter/Footer";
+import Calculator from "./Pages/Calculator";
+import app from './firebase.jsx';
 
 function App() {
-  //dark mode function
   const [darkMode, setDarkMode] = React.useState(false);
+  const [groceryItem, setGroceryItem] = React.useState([]);
+  const [user, setUser] = React.useState(null);
+
+  const database = getDatabase(app);
+  const productsInDB = ref(database, "products");
+  const auth = getAuth(app);
 
   function toggleDarkMode() {
-    setDarkMode((prevState) => (prevState = !prevState));
+    setDarkMode((prevState) => !prevState);
     console.log("dark mode active!", darkMode);
   }
 
-  //firebase settings
-  const appSettings = firebaseData.databaseURL;
+  // Load products from the database when the component mounts
+  React.useEffect(() => {
+    const fetchData = async () => {
+      try {
+        onValue(productsInDB, (snapshot) => {
+          if (snapshot.exists()) {
+            const data = snapshot.val();
+            const itemsArray = [];
+            for (const key in data) {
+              itemsArray.push({
+                id: key,
+                ...data[key],
+              });
+            }
+            setGroceryItem(itemsArray);
+          }
+        }, (error) => {
+          console.error("Error fetching data:", error);
+        });
+      } catch (error) {
+        console.error("Error in fetchData:", error);
+      }
+    };
 
-  const app = firebaseData.initializeApp(appSettings);
-  const database = firebaseData.getDatabase(app);
-  const productsInDB = firebaseData.ref(database, "products");
+    fetchData();
 
-  //input handler function
-  const [groceryItem, setGroceryItem] = React.useState([]);
-  const [itemName, setItemName] = React.useState("");
+    return () => {
+      off(productsInDB);
+    };
+  }, [productsInDB]);
 
-  function handlgeChange(event) {
-    const { value } = event.target;
-    setItemName(value);
-  }
+  // Authentication
+  React.useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+      setUser(currentUser);
+    }, (error) => {
+      console.error("Error with auth state change:", error);
+    });
 
-  // handle submit function
-  function handleSubmit(event) {
-    event.preventDefault();
-
-    if (itemName.trim() !== "") {
-      const newItem = {
-        id: nanoid(),
-        itemName: itemName,
-      };
-      setGroceryItem([...groceryItem, newItem]);
-    }
-    firebaseData.push(productsInDB, groceryItem);
-    setItemName("");
-    // setGroceryItem({ itemName: "" });
-    console.log("form submitted");
-  }
+    return () => {
+      unsubscribe();
+    };
+  }, [auth]);
 
   return (
-    <div className="App">
-      <Header darkMode={darkMode} toggleDarkMode={toggleDarkMode} />
-      <Image />
-      <AddItem
-        onSubmit={handleSubmit}
-        onChange={handlgeChange}
-        groceryItem={groceryItem}
-      />
-    </div>
+    <Router>
+      <section
+        className={`${
+          darkMode ? "bg-[#21222A] text-[#D5D4D8]" : "bg-white text-[#21222A]"
+        } text-center flex flex-col items-center min-h-screen w-full`}
+      >
+        <Header
+          darkMode={darkMode}
+          toggleDarkMode={toggleDarkMode}
+          user={user}
+          setUser={setUser}
+          auth={auth}
+        />
+        <main className="container mx-auto p-4 sm:p-6 md:p-8 lg:p-10 flex-grow">
+          <Routes>
+            <Route path="/profile" element={<Profile user={user} />} />
+            <Route path="/" element={<Home user={user} />} />
+            <Route path="/calculator" element={<Calculator user={user} />} />
+            <Route path="/recipes" element={<Recipes user={user} />} />
+            <Route path="/favoritedrecipes" element={<FavoritedRecipes user={user} />} />
+          </Routes>
+        </main>
+        <Footer user={user} />
+      </section>
+    </Router>
   );
 }
 
