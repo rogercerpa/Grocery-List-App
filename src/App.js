@@ -71,10 +71,10 @@ function App() {
 
   return (
     <Router>
-      <section
+      <div
         className={`${
           darkMode ? "bg-[#21222A] text-[#D5D4D8]" : "bg-white text-[#21222A]"
-        } text-center flex flex-col items-center min-h-screen w-full`}
+        } flex flex-col min-h-screen`}
       >
         <Header
           darkMode={darkMode}
@@ -83,7 +83,7 @@ function App() {
           setUser={setUser}
           auth={auth}
         />
-        <main className="container mx-auto p-4 sm:p-6 md:p-8 lg:p-10 flex-grow">
+        <main className="flex-grow container mx-auto p-4 sm:p-6 md:p-8 lg:p-10 pb-20 overflow-auto">
           <Routes>
             <Route path="/profile" element={<Profile user={user} />} />
             <Route path="/" element={<Home user={user} />} />
@@ -93,7 +93,7 @@ function App() {
           </Routes>
         </main>
         <Footer user={user} />
-      </section>
+      </div>
     </Router>
   );
 }
