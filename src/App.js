@@ -76,14 +76,16 @@ function App() {
           darkMode ? "bg-[#21222A] text-[#D5D4D8]" : "bg-white text-[#21222A]"
         } flex flex-col min-h-screen`}
       >
-        <Header
-          darkMode={darkMode}
-          toggleDarkMode={toggleDarkMode}
-          user={user}
-          setUser={setUser}
-          auth={auth}
-        />
-        <main className="flex-grow container mx-auto p-4 sm:p-6 md:p-8 lg:p-10 pb-20 overflow-auto">
+        <header className="fixed top-0 left-0 right-0 z-10">
+          <Header
+            darkMode={darkMode}
+            toggleDarkMode={toggleDarkMode}
+            user={user}
+            setUser={setUser}
+            auth={auth}
+          />
+        </header>
+        <main className="flex-grow container mx-auto p-4 sm:p-6 md:p-8 lg:p-10 pb-20 overflow-auto mt-16">
           <Routes>
             <Route path="/profile" element={<Profile user={user} />} />
             <Route path="/" element={<Home user={user} />} />
