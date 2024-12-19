@@ -20,7 +20,7 @@ const Recipes = (props) => {
   const firestore = getFirestore();
   const [favoritedRecipeIds, setFavoritedRecipeIds] = useState([]);
 
-  //save recipe to users favorites list
+  // Save recipe to user's favorites list
   const saveRecipeAsFavorite = async (recipe) => {
     try {
       const recipeData = { ...recipe, id: recipe.id.toString() };
@@ -44,7 +44,6 @@ const Recipes = (props) => {
       console.error("Error saving recipe as favorite: ", error);
     }
   };
-
 
   // Load search results from local storage
   useEffect(() => {
@@ -73,10 +72,8 @@ const Recipes = (props) => {
   }, [fetchIngredients]);
 
   const addItemToDatabase = async (item) => {
-    // Check if the ingredient is already in the database
     if (ingredientsInDB.includes(item)) {
       setFeedback(` ${item} is already in your grocery list.`);
-      // Set a timer to clear the feedback message after 5 seconds
       setTimeout(() => {
         setFeedback("");
       }, 5000);
@@ -85,29 +82,17 @@ const Recipes = (props) => {
 
     try {
       const productsInDB = ref(db, "products");
-
-      // Create a new product reference
       const newProductRef = push(productsInDB);
-
-      // Create a new product object
       const newProduct = {
-        id: newProductRef.key, // The key of the new product ref
-        itemName: item, // The name of the product
+        id: newProductRef.key,
+        itemName: item,
         category: "Food",
       };
-
-      // Set the new product reference to the new product object
       set(newProductRef, newProduct);
-
-      // Show a success message
       setFeedback(` ${item} added.`);
-
-      // Set a timer to clear the feedback message after 5 seconds
       setTimeout(() => {
         setFeedback("");
       }, 5000);
-
-      // Update local copy of ingredients
       setIngredientsInDB([...ingredientsInDB, item]);
     } catch (error) {
       console.error("Error adding document: ", error);
@@ -118,7 +103,7 @@ const Recipes = (props) => {
   const handleSearchTermChange = (event) => {
     setSearchTerm(event.target.value);
   };
-// search the API for recipes
+
   const handleSearch = async (e) => {
     e.preventDefault();
     setError(null);
@@ -144,7 +129,7 @@ const Recipes = (props) => {
       setError(err.toString());
     }
   };
-// open modal to show recipe details
+
   const [selectedRecipe, setSelectedRecipe] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -154,25 +139,23 @@ const Recipes = (props) => {
   };
 
   return (
-    <div className="w-full flex flex-col items-center ">
-      <h1 className="text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl p-1">
-        Find the perfect Recipe!
+    <div className="w-full flex flex-col items-center px-4 sm:px-6 lg:px-8 py-8">
+      <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-gray-900 mb-4">
+        Find the Perfect Recipe!
       </h1>
       {!user && (
-        <p className="mt-6 text-lg leading-8 text-gray-600">
+        <p className="mt-4 text-base sm:text-lg lg:text-xl leading-6 text-gray-600 text-center">
           Sign up or sign in to access the main features of the app.
         </p>
       )}
 
-      {error && <div>Error: {error}</div>}
+      {error && <div className="text-red-500 mt-4">{error}</div>}
 
       {user && (
-        <div className="">
-          <p className="mt-6 text-lg leading-8 text-gray-600">
-            then, add the ingredients you need to your grocery list!
+        <div className="w-full">
+          <p className="mt-4 text-base sm:text-lg lg:text-xl leading-6 text-gray-600 text-center">
+            Then, add the ingredients you need to your grocery list!
           </p>
-
-          {/* recipe search bar */}
 
           <RecipeSearchForm
             handleSearch={handleSearch}
@@ -180,23 +163,17 @@ const Recipes = (props) => {
             handleSearchTermChange={handleSearchTermChange}
           />
 
-          {/* recipe results  */}
-
-          <div className="flex flex-col gap-10 w-full p-10 ">
-            <div className="mt-6 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-4 xl:gap-x-8">
-              {recipes.map((recipe, index) => (
-                <RecipeCard
-                  key={index}
-                  recipe={recipe}
-                  openModal={openModal}
-                  saveRecipeAsFavorite={saveRecipeAsFavorite}
-                  favoritedRecipeIds={favoritedRecipeIds}
-                />
-              ))}
-            </div>
+          <div className="mt-6 grid grid-cols-1 gap-y-10 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:gap-x-8">
+            {recipes.map((recipe, index) => (
+              <RecipeCard
+                key={index}
+                recipe={recipe}
+                openModal={openModal}
+                saveRecipeAsFavorite={saveRecipeAsFavorite}
+                favoritedRecipeIds={favoritedRecipeIds}
+              />
+            ))}
           </div>
-
-          {/* recipe details */}
 
           <RecipeDetails
             isOpen={isModalOpen}

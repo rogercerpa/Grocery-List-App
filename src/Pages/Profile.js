@@ -36,7 +36,7 @@ const Profile = ({ user }) => {
   }, [user, navigate]);
 
   return (
-    <main className="font-sans w-full flex flex-row justify-center items-center flex-grow">
+    <main className="font-sans w-full flex flex-col items-center justify-center min-h-screen p-4 sm:p-6 lg:p-8">
       {user && (
         <ProfileCard
           user={user}

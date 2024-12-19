@@ -72,11 +72,9 @@ function App() {
   return (
     <Router>
       <section
-        className={
-          darkMode
-            ? "dbg-[#21222A] text-[#D5D4D8] text-center flex flex-col items-center h-auto w-auto m-auto"
-            : "text-[#21222A] bg-[#ffffff] text-center flex flex-col items-center h-auto w-auto m-auto"
-        }
+        className={`${
+          darkMode ? "bg-[#21222A] text-[#D5D4D8]" : "bg-white text-[#21222A]"
+        } text-center flex flex-col items-center min-h-screen w-full`}
       >
         <Header
           darkMode={darkMode}
@@ -85,7 +83,7 @@ function App() {
           setUser={setUser}
           auth={auth}
         />
-        <main className="container box-border p-4 pb-20 sm:m-20 md:m-10 lg:m-5">
+        <main className="container mx-auto p-4 sm:p-6 md:p-8 lg:p-10 flex-grow">
           <Routes>
             <Route path="/profile" element={<Profile user={user} />} />
             <Route path="/" element={<Home user={user} />} />
