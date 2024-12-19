@@ -7,7 +7,7 @@ import reportWebVitals from "./reportWebVitals";
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <App className="p-6 max-w-sm mx-auto bg-white rounded-xl shadow-lg flex items-center space-x-4p-6" />
+    <App className="p-4 max-w-full sm:max-w-sm mx-auto bg-white rounded-xl shadow-lg flex flex-col sm:flex-row items-center space-y-4 sm:space-y-0 sm:space-x-4" />
   </React.StrictMode>
 );
 

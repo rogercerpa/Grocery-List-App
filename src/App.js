@@ -8,58 +8,60 @@ import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { getDatabase, ref, onValue, off } from "firebase/database";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Footer from "./components/HeaderFooter/Footer";
-import Calculator from "./Pages/Calculator"
+import Calculator from "./Pages/Calculator";
 import app from './firebase.jsx';
+
 function App() {
-   const [darkMode, setDarkMode] = React.useState(false);
-
-  function toggleDarkMode() {
-    setDarkMode((prevState) => (prevState = !prevState));
-    console.log("dark mode active!", darkMode);
-  }
-
-  //firebase settings
+  const [darkMode, setDarkMode] = React.useState(false);
+  const [groceryItem, setGroceryItem] = React.useState([]);
+  const [user, setUser] = React.useState(null);
 
   const database = getDatabase(app);
   const productsInDB = ref(database, "products");
+  const auth = getAuth(app);
 
-  const [groceryItem, setGroceryItem] = React.useState([]);
+  function toggleDarkMode() {
+    setDarkMode((prevState) => !prevState);
+    console.log("dark mode active!", darkMode);
+  }
 
   // Load products from the database when the component mounts
   React.useEffect(() => {
     const fetchData = async () => {
-      onValue(productsInDB, (snapshot) => {
-        if (snapshot.exists()) {
-          const data = snapshot.val();
-          const itemsArray = [];
-          for (const key in data) {
-            itemsArray.push({
-              id: key,
-              ...data[key],
-            });
+      try {
+        onValue(productsInDB, (snapshot) => {
+          if (snapshot.exists()) {
+            const data = snapshot.val();
+            const itemsArray = [];
+            for (const key in data) {
+              itemsArray.push({
+                id: key,
+                ...data[key],
+              });
+            }
+            setGroceryItem(itemsArray);
           }
-          setGroceryItem(itemsArray);
-        }
-      });
+        }, (error) => {
+          console.error("Error fetching data:", error);
+        });
+      } catch (error) {
+        console.error("Error in fetchData:", error);
+      }
     };
 
     fetchData();
 
     return () => {
-      // Unsubscribe from the firebase listener
       off(productsInDB);
     };
   }, [productsInDB]);
 
-  //authentication
-
-  const auth = getAuth(app);
-
-  const [user, setUser] = React.useState(null);
-
+  // Authentication
   React.useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
+    }, (error) => {
+      console.error("Error with auth state change:", error);
     });
 
     return () => {
@@ -84,19 +86,16 @@ function App() {
           auth={auth}
         />
         <main className="container box-border p-4 pb-20 sm:m-20 md:m-10 lg:m-5">
-        <Routes>
-          <Route path="/profile" element={<Profile user={user} />} />
-          <Route path="/" element={<Home user={user} />} />
-          <Route path="/calculator" element={<Calculator user={user} />} />
-          <Route path="/recipes" element={<Recipes user={user} />} />
-          <Route path="/favoritedrecipes" element={<FavoritedRecipes user={user} />} />
-        </Routes>
+          <Routes>
+            <Route path="/profile" element={<Profile user={user} />} />
+            <Route path="/" element={<Home user={user} />} />
+            <Route path="/calculator" element={<Calculator user={user} />} />
+            <Route path="/recipes" element={<Recipes user={user} />} />
+            <Route path="/favoritedrecipes" element={<FavoritedRecipes user={user} />} />
+          </Routes>
         </main>
-       <Footer 
-       user={user}
-       /> 
+        <Footer user={user} />
       </section>
-      
     </Router>
   );
 }

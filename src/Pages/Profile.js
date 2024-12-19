@@ -10,12 +10,12 @@ const db = getFirestore(app);
 const Profile = ({ user }) => {
 
   const navigate = useNavigate();  // Initialize useHistory
-  const [username, setUsername] = useState(user.displayName || "");
+  const [username, setUsername] = useState("");
 
   useEffect(() => {
 
     if (!user) {  // Check if user is not logged in
-      navigate.push("/");  // Redirect to homepage
+      navigate("/");  // Redirect to homepage
       return;  // Exit useEffect to prevent further execution
     }
 
@@ -40,7 +40,7 @@ const Profile = ({ user }) => {
       {user && (
         <ProfileCard
           user={user}
-          username={username}
+          username={username || user.displayName || "Guest"}
         />
       )}
     </main>
