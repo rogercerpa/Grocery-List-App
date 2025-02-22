@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useSwipeable } from 'react-swipeable';
+import BarcodeScanner from './BarcodeScanner';
 
 const BudgetTableRow = ({ item, index, handleItemChange, deleteItem }) => {
   const [swipeDistance, setSwipeDistance] = useState(0);
@@ -23,53 +24,70 @@ const BudgetTableRow = ({ item, index, handleItemChange, deleteItem }) => {
     trackMouse: true,
   });
 
+  const handleProductFound = (productName) => {
+    handleItemChange(index, 'name', productName);
+  };
+
   return (
-    <tr className="relative border-b border-gray-200" {...handlers}>
-      <td
-        className="py-3 px-4 transition-all duration-300"
-        style={{ opacity: 1 - swipeDistance / 100 }}
-      >
-        <input
-          className="w-full border rounded py-2 px-3 text-base"
-          value={item.name}
-          onChange={(e) => handleItemChange(index, 'name', e.target.value)}
-        />
-      </td>
-      <td
-        className="py-3 px-4 transition-all duration-300"
-        style={{ opacity: 1 - swipeDistance / 100 }}
-      >
-        <input
-          type="number"
-          className="w-full border rounded py-2 px-3 text-base"
-          min="1"
-          value={item.quantity}
-          onChange={(e) => handleItemChange(index, 'quantity', e.target.value)}
-        />
-      </td>
-      <td
-        className="py-3 px-4 relative transition-all duration-300"
-        style={{ opacity: 1 - swipeDistance / 100 }}
-      >
-        <span className="absolute left-3 top-1/2 transform -translate-y-1/2 text-base">$</span>
-        <input
-          type="number"
-          className="w-full border rounded py-2 pl-8 text-base"
-          style={{ minWidth: '80px' }}
-          value={item.price}
-          onChange={(e) => handleItemChange(index, 'price', e.target.value)}
-        />
-      </td>
-      <td
-        className="absolute right-0 top-0 h-full flex items-center justify-center text-white transition-all duration-300"
-        style={{
-          width: `${swipeDistance}px`,
-          backgroundColor: swipeDistance > 50 ? 'red' : 'rgba(255, 0, 0, 0.5)',
-        }}
-      >
-        <span>Delete</span>
-      </td>
-    </tr>
+    <>
+      {index === 0 && (
+        <tr>
+          <th className="py-3 px-4 text-center text-base font-medium text-gray-700 w-8">Scan</th>
+          <th className="py-3 px-4 text-center text-base font-medium text-gray-700 w-64">Item</th>
+          <th className="py-3 px-4 text-center text-base font-medium text-gray-700 w-12">Quantity</th>
+          <th className="py-3 px-4 text-center text-base font-medium text-gray-700 w-16">Price</th>
+        </tr>
+      )}
+      <tr className="relative border-b border-gray-200" {...handlers}>
+        <td className="py-1 px-1 w-2">
+          <BarcodeScanner onProductFound={handleProductFound} />
+        </td>
+        <td
+          className="py-3 px-4 transition-all duration-300"
+          style={{ opacity: 1 - swipeDistance / 100 }}
+        >
+          <input
+            className="w-full border rounded py-2 px-3 text-base"
+            value={item.name}
+            onChange={(e) => handleItemChange(index, 'name', e.target.value)}
+          />
+        </td>
+        <td
+          className="py-3 px-4 transition-all duration-300"
+          style={{ opacity: 1 - swipeDistance / 100 }}
+        >
+          <input
+            type="number"
+            className="w-full border rounded py-2 px-3 text-base"
+            min="1"
+            value={item.quantity}
+            onChange={(e) => handleItemChange(index, 'quantity', e.target.value)}
+          />
+        </td>
+        <td
+          className="py-3 px-4 relative transition-all duration-300"
+          style={{ opacity: 1 - swipeDistance / 100 }}
+        >
+          <span className="absolute left-3 top-1/2 transform -translate-y-1/2 text-base">$</span>
+          <input
+            type="number"
+            className="w-full border rounded py-2 pl-8 text-base"
+            style={{ minWidth: '80px' }}
+            value={item.price}
+            onChange={(e) => handleItemChange(index, 'price', e.target.value)}
+          />
+        </td>
+        <td
+          className="absolute right-0 top-0 h-full flex items-center justify-center text-white transition-all duration-300"
+          style={{
+            width: `${swipeDistance}px`,
+            backgroundColor: swipeDistance > 50 ? 'red' : 'rgba(255, 0, 0, 0.5)',
+          }}
+        >
+          <span>Delete</span>
+        </td>
+      </tr>
+    </>
   );
 };
 

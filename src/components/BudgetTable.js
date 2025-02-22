@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import BarcodeScanner from './BarcodeScanner'; // Assuming they're in the same directory
 import BudgetTableRow from './BudgetTableRow'; // Import the BudgetTableRow component
 
 const BudgetTable = () => {
@@ -59,15 +58,7 @@ const BudgetTable = () => {
 
   return (
     <div className="container mx-auto p-5 space-y-4 divide-y divide-gray-200">
-      <BarcodeScanner onProductFound={handleProductFound} />
       <table className="w-full">
-        <thead>
-          <tr>
-            <th className="py-3 px-4 text-left text-base font-medium text-gray-700">Item</th>
-            <th className="py-3 px-4 text-left text-base font-medium text-gray-700">Quantity</th>
-            <th className="py-3 px-4 text-left text-base font-medium text-gray-700">Price</th>
-          </tr>
-        </thead>
         <tbody>
           {items.map((item, index) => (
             <BudgetTableRow
@@ -79,7 +70,7 @@ const BudgetTable = () => {
             />
           ))}
           <tr>
-            <td colSpan="3" className="py-3 px-4">
+            <td colSpan="4" className="py-3 px-4">
               <button onClick={addItem} className="w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-3 px-4 rounded">
                 Add Item
               </button>
@@ -87,7 +78,7 @@ const BudgetTable = () => {
           </tr>
           <tr>
             <td className="py-3 px-4 text-base">Tax Percentage:</td>
-            <td colSpan="2" className="py-3 px-4">
+            <td colSpan="3" className="py-3 px-4">
               <input
                 type="number"
                 className="w-full border rounded py-2 px-3 text-base"
@@ -98,15 +89,15 @@ const BudgetTable = () => {
           </tr>
           <tr>
             <td className="py-3 px-4 text-base">Tax Amount:</td>
-            <td colSpan="2" className="py-3 px-4">${taxAmount.toFixed(2)}</td>
+            <td colSpan="3" className="py-3 px-4">${taxAmount.toFixed(2)}</td>
           </tr>
           <tr>
             <td className="py-3 px-4 text-base">Total + Tax:</td>
-            <td colSpan="2" className="py-3 px-4">${totalWithTax.toFixed(2)}</td>
+            <td colSpan="3" className="py-3 px-4">${totalWithTax.toFixed(2)}</td>
           </tr>
           <tr>
             <td className="py-3 px-4 text-base">Budget:</td>
-            <td colSpan="2" className="py-3 px-4">
+            <td colSpan="3" className="py-3 px-4">
               <input
                 type="number"
                 className="w-full border rounded py-2 px-3 text-base"
@@ -121,7 +112,7 @@ const BudgetTable = () => {
                 Remaining: ${remainingBudget.toFixed(2)}
               </span>
             </td>
-            <td colSpan="2" className="py-3 px-4">
+            <td colSpan="3" className="py-3 px-4">
               <button
                 onClick={resetTable}
                 className="w-full bg-red-500 hover:bg-red-700 text-white font-bold py-3 px-4 rounded"
