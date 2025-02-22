@@ -24,7 +24,8 @@ const BudgetTable = () => {
   }, [taxPercentage, budget]);
 
   const handleProductFound = (productName) => {
-    console.log(productName);
+    // Add a new item with the scanned product name
+    setItems([...items, { name: productName, price: '', quantity: 1 }]);
   };
 
   const handleItemChange = (index, field, value) => {
@@ -58,6 +59,7 @@ const BudgetTable = () => {
 
   return (
     <div className="container mx-auto p-5 space-y-4 divide-y divide-gray-200">
+      <BarcodeScanner onProductFound={handleProductFound} />
       <table className="w-full">
         <thead>
           <tr>

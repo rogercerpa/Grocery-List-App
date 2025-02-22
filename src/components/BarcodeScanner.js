@@ -1,18 +1,29 @@
-import React, { useEffect, useCallback } from 'react';
+import React, { useEffect, useCallback, useState } from 'react';
 import Quagga from 'quagga';
 import { QrCodeIcon } from "@heroicons/react/24/outline";
 
 const BarcodeScanner = ({ onProductFound }) => {
+  const [isQuaggaRunning, setIsQuaggaRunning] = useState(false);
+
+  const isMobileDevice = () => {
+    return /Mobi|Android/i.test(navigator.userAgent);
+  };
+
   const handleBarcodeDetected = useCallback(async (data) => {
     if (data && data.codeResult) {
       const barcode = data.codeResult.code;
       const productName = await fetchProductData(barcode);
       if (productName) {
         onProductFound(productName);
+      } else {
+        console.warn("Product not found for barcode:", barcode);
       }
-      Quagga.stop();
+      if (isQuaggaRunning) {
+        Quagga.stop();
+        setIsQuaggaRunning(false);
+      }
     }
-  }, [onProductFound]);
+  }, [onProductFound, isQuaggaRunning]);
 
   const fetchProductData = async (barcode) => {
     try {
@@ -21,7 +32,7 @@ const BarcodeScanner = ({ onProductFound }) => {
       if (data.status === 1) {
         return data.product.product_name;
       } else {
-        console.error("Product not found!");
+        console.warn("Product not found!");
         return null;
       }
     } catch (error) {
@@ -31,6 +42,11 @@ const BarcodeScanner = ({ onProductFound }) => {
   };
 
   const startScanner = () => {
+    if (!isMobileDevice()) {
+      alert("Barcode scanning is only available on mobile devices.");
+      return;
+    }
+
     Quagga.init({
       inputStream: {
         type: "LiveStream",
@@ -49,6 +65,7 @@ const BarcodeScanner = ({ onProductFound }) => {
         return;
       }
       Quagga.start();
+      setIsQuaggaRunning(true);
     });
 
     Quagga.onDetected(handleBarcodeDetected);
@@ -56,15 +73,20 @@ const BarcodeScanner = ({ onProductFound }) => {
 
   useEffect(() => {
     return () => {
-      if (Quagga) {
+      if (isQuaggaRunning) {
         Quagga.stop();
         Quagga.offDetected(handleBarcodeDetected);
+        setIsQuaggaRunning(false);
       }
     };
-  }, [handleBarcodeDetected]);
+  }, [handleBarcodeDetected, isQuaggaRunning]);
 
   return (
-    <button onClick={startScanner} className="flex items-center justify-center p-2 bg-gray-200 rounded hover:bg-gray-300">
+    <button 
+      onClick={startScanner} 
+      className="flex items-center justify-center p-2 bg-gray-200 rounded hover:bg-gray-300"
+      aria-label="Start Barcode Scanner"
+    >
       <QrCodeIcon className="h-6 w-6 text-gray-500" />
     </button>
   );
